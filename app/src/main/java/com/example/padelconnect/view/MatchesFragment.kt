@@ -1,4 +1,4 @@
-package com.example.padelconnect.View
+package com.example.padelconnect.view
 
 import android.os.Bundle
 import android.view.LayoutInflater

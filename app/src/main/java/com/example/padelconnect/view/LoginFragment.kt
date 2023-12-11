@@ -1,4 +1,4 @@
-package com.example.padelconnect.View
+package com.example.padelconnect.view
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -13,7 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.padelconnect.R
-import com.example.padelconnect.ModelView.LoginViewModel
+import com.example.padelconnect.modelView.LoginViewModel
 
 class LoginFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.login, container, false)
+        val view = inflater.inflate(R.layout.fragment_login, container, false)
 
         // Inicializar ViewModel
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)

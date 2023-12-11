@@ -1,4 +1,4 @@
-package com.example.padelconnect.ModelView
+package com.example.padelconnect.modelView
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

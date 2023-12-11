@@ -7,36 +7,36 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.example.padelconnect.View.HomeFragment"
+        android:name="com.example.padelconnect.view.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="com.example.padelconnect.View.GalleryFragment"
+        android:name="com.example.padelconnect.view.GalleryFragment"
         android:label="@string/menu_gallery"
         tools:layout="@layout/fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="com.example.padelconnect.View.SlideshowFragment"
+        android:name="com.example.padelconnect.view.SlideshowFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.padelconnect.View.LoginFragment"
+        android:name="com.example.padelconnect.view.LoginFragment"
         android:label="LoginFragment"
-        tools:layout="@layout/login"/>
+        tools:layout="@layout/fragment_login"/>
 
     <fragment
         android:id="@+id/matchesListFragment"
-        android:name="com.example.padelconnect.View.MatchesFragment"
+        android:name="com.example.padelconnect.view.MatchesFragment"
         android:label="MatchesListFragment"
         tools:layout="@layout/fragment_matches_list"/>
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.example.padelconnect.View.RegisterFragment"
+        android:name="com.example.padelconnect.view.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/fragment_register"/>
 

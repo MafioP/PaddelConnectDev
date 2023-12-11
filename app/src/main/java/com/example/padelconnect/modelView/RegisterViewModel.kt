@@ -1,16 +1,16 @@
-package com.example.padelconnect.ModelView
+package com.example.padelconnect.modelView
 
+import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.padelconnect.Model.entities.User
+import com.example.padelconnect.model.entities.User
+import com.example.padelconnect.model.firebase.DatabaseConnection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 
 class RegisterViewModel {
-    private val firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
-    private val firebaseDatabase: FirebaseDatabase = FirebaseDatabase.getInstance()
-    private val usersReference: DatabaseReference = firebaseDatabase.reference.child("users")
+    private val firebaseAuth: FirebaseAuth = DatabaseConnection.getAuthInstance()
+    private val usersReference: DatabaseReference = DatabaseConnection.getUsersReference()
     private val registerResultLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     fun getRegisterResult(): LiveData<Boolean> = registerResultLiveData
@@ -23,7 +23,8 @@ class RegisterViewModel {
         email: String,
         password: String,
         city: String,
-        country: String
+        country: String,
+        imageProfile:ImageView
     ) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
@@ -33,7 +34,7 @@ class RegisterViewModel {
                     val userId = currentUser?.uid
 
                     // Crear un objeto con los datos del usuario
-                    val user = userId?.let { User(it, name, lastName, username, email, city, country) }
+                    val user = userId?.let { User(it, name, lastName, username, email, city, country,imageProfile) }
 
                     // Guardar los datos del usuario en la base de datos (Firebase Realtime Database)
                     if (userId != null) {
