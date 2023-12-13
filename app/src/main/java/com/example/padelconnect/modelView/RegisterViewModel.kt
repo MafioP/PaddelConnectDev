@@ -3,12 +3,13 @@ package com.example.padelconnect.modelView
 import android.widget.ImageView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.padelconnect.model.entities.User
 import com.example.padelconnect.model.firebase.DatabaseConnection
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 
-class RegisterViewModel {
+class RegisterViewModel: ViewModel(){
     private val firebaseAuth: FirebaseAuth = DatabaseConnection.getAuthInstance()
     private val usersReference: DatabaseReference = DatabaseConnection.getUsersReference()
     private val registerResultLiveData: MutableLiveData<Boolean> = MutableLiveData()
