@@ -10,6 +10,7 @@ class User(
     val email: String = "",
     val city: String = "",
     val country: String = "",
+    val password:String = "",
     val imageView: ImageView? = null
 ){
 }
