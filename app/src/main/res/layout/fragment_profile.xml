@@ -1,128 +1,222 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- activity_main.xml -->
+    <!-- AppBarLayout -->
 
-    <RelativeLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="15dp"
+        tools:ignore="MissingConstraints">
+
+        <!-- Toolbar o ActionBar -->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <!-- Agrega un ImageView para la imagen de la empresa -->
+            <ImageView
+                android:id="@+id/imageViewCompanyLogo"
+                android:layout_width="177dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/dalle_2023_10_15_18_52_23___illustration_of_a_sleek_and_minimalist_logo_for_padelconnect__the_design_should_seamlessly_merge_a_padel_racket_and_a_connectivity_symbol_or_network_photoroom_png_photoroom" />
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity"
-        tools:layout_editor_absoluteX="46dp"
-        tools:layout_editor_absoluteY="0dp">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <!-- Imagen de usuario -->
-        <ImageView
-            android:id="@+id/imageViewUser"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="140dp"
-            android:src="@drawable/default_user_image" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
-        <!-- Nombre -->
+                <!-- Imagen de usuario -->
 
-        <TextView
-            android:id="@+id/textViewName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/imageViewUser"
-            android:layout_marginTop="10dp"
-            android:text="Nombre:"
-            android:textSize="20sp" />
+                <ImageView
+                    android:id="@+id/imageViewUser"
+                    android:layout_width="145dp"
+                    android:layout_height="155dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="80dp"
+                    android:src="@drawable/png_transparent_computer_icons_profile_s_free_angle_sphere_profile_cliparts_free" />
 
-        <!-- Apellidos -->
+                <!-- Nombre -->
 
-        <TextView
-            android:id="@+id/textViewUserRealName"
-            android:layout_width="371dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/textViewName"
-            android:layout_marginTop="0dp"
-            android:layout_centerHorizontal="true"
-            android:text="TextView" />
+                <TextView
+                    android:id="@+id/textViewName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/imageViewUser"
+                    android:layout_marginTop="10dp"
+                    android:text="Nombre:"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewLastName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewUserRealName"
-            android:layout_marginTop="10dp"
-            android:text="Apellidos:"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/textViewUserRealName"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewName"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
 
-        <TextView
-            android:id="@+id/textViewUserLastName"
-            android:layout_width="371dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/textViewLastName"
-            android:layout_marginTop="0dp"
-            android:layout_centerHorizontal="true"
-            android:text="TextView" />
+                <!-- Apellidos -->
 
-        <!-- Usuario -->
+                <TextView
+                    android:id="@+id/textViewLastName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUserRealName"
+                    android:layout_marginTop="10dp"
+                    android:text="Apellidos:"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewUserLastName"
-            android:layout_marginTop="10dp"
-            android:text="Usuario:"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/textViewUserLastName"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewLastName"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
 
-        <TextView
-            android:id="@+id/textViewUsername"
-            android:layout_width="371dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/textViewUser"
-            android:layout_marginTop="0dp"
-            android:layout_centerHorizontal="true"
-            android:text="TextView" />
+                <!-- Usuario -->
 
-        <!-- Email -->
+                <TextView
+                    android:id="@+id/textViewUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUserLastName"
+                    android:layout_marginTop="10dp"
+                    android:text="Usuario:"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewUsername"
-            android:layout_marginTop="10dp"
-            android:text="Email:"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/textViewUsername"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewUser"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
 
-        <TextView
-            android:id="@+id/textViewUserEmail"
-            android:layout_width="371dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/textViewEmail"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="0dp"
-            android:text="TextView" />
+                <!-- Email -->
 
-        <!-- Contraseña -->
+                <TextView
+                    android:id="@+id/textViewEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUsername"
+                    android:layout_marginTop="10dp"
+                    android:text="Email:"
+                    android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/textViewPassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewUserEmail"
-            android:layout_marginTop="10dp"
-            android:text="Contrasena:"
-            android:textSize="20sp" />
+                <TextView
+                    android:id="@+id/textViewUserEmail"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewEmail"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
 
-        <TextView
-            android:id="@+id/textViewUserPassword"
-            android:layout_width="371dp"
-            android:layout_height="35dp"
-            android:layout_below="@id/textViewPassword"
-            android:layout_marginTop="0dp"
-            android:layout_centerHorizontal="true"
-            android:text="TextPassword" />
+                <!-- Contraseña -->
 
+                <TextView
+                    android:id="@+id/textViewPassword"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUserEmail"
+                    android:layout_marginTop="10dp"
+                    android:text="Contrasena:"
+                    android:textSize="20sp" />
 
-    </RelativeLayout>
+                <TextView
+                    android:id="@+id/textViewUserPassword"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewPassword"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
 
+                <!-- Ciudad -->
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/textViewCity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUserPassword"
+                    android:layout_marginTop="10dp"
+                    android:text="Ciudad:"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textViewUserCity"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewCity"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
+
+                <!-- Pais -->
+
+                <TextView
+                    android:id="@+id/textViewCountry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUserCity"
+                    android:layout_marginTop="10dp"
+                    android:text="Ciudad:"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/textViewUserCountry"
+                    android:layout_width="371dp"
+                    android:layout_height="35dp"
+                    android:layout_below="@id/textViewCountry"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="0dp"
+                    android:text="" />
+
+                <!-- Boton Editar -->
+                <Button
+                    android:id="@+id/btnEditar"
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/textViewUserCountry"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:text="Editar"
+                    android:textColor="@android:color/white"
+                    android:backgroundTint="#4CAF50"
+                    android:background="#2196F3"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:itemIconSize="24dp"
+        app:itemTextAppearance="@style/BottomNavigationViewText"
+        app:menu="@menu/bottom_navigation_menu"/>
+
+</RelativeLayout >

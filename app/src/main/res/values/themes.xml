@@ -22,4 +22,10 @@
     <style name="Theme.PadelConnect.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.PadelConnect.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <!-- Estilo para el texto del BottomNavigationView -->
+    <style name="BottomNavigationViewText" parent="TextAppearance.AppCompat.Small">
+        <item name="android:textSize">12sp</item> <!-- Tamaño del texto -->
+        <item name="android:height">20dp</item> <!-- Altura del texto -->
+        <!-- Otros atributos de texto -->
+    </style>
 </resources>

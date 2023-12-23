@@ -1,16 +1,21 @@
 package com.example.padelconnect.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.padelconnect.R
 import com.example.padelconnect.model.entities.User
-import com.example.padelconnect.modelView.ProfileViewModel
+import com.example.padelconnect.modelView.viewmodel.ProfileViewModel
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
+@Suppress("DEPRECATION")
 class ProfileFragment: Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
@@ -19,7 +24,10 @@ class ProfileFragment: Fragment() {
     private lateinit var textViewUsername:TextView
     private lateinit var textViewUserEmail:TextView
     private lateinit var textViewUserPassword:TextView
+    private lateinit var imageViewUser:ImageView
+    private lateinit var bottomNavigationView:BottomNavigationView
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -33,6 +41,9 @@ class ProfileFragment: Fragment() {
         textViewUsername = view.findViewById(R.id.textViewUsername)
         textViewUserEmail = view.findViewById(R.id.textViewUserEmail)
         textViewUserPassword = view.findViewById(R.id.textViewPassword)
+        imageViewUser = view.findViewById(R.id.imageViewUser)
+        bottomNavigationView = view.findViewById(R.id.bottomNavigationMenu)
+
 
         return view
     }
@@ -41,27 +52,69 @@ class ProfileFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        // Supongamos que tienes una clase ViewModel llamada viewModel con los datos del usuario
-        val user: User = obtenerDatosDelUsuario() // Esta función debe obtener los datos del usuario después del inicio de sesión
+        // Observar los cambios en los LiveData y actualizar la interfaz de usuario cuando cambien
+        viewModel.name.observe(viewLifecycleOwner, { name ->
+            textViewUserName.text = name
+        })
+        viewModel.lastName.observe(viewLifecycleOwner, { lastName ->
+            textViewUserLastName.text = lastName
+        })
+        viewModel.username.observe(viewLifecycleOwner, { username ->
+            textViewUsername.text = username
+        })
+        viewModel.email.observe(viewLifecycleOwner, { email ->
+            textViewUserEmail.text = email
+        })
+        viewModel.password.observe(viewLifecycleOwner, { password ->
+            textViewUserPassword.text = password
+        })
+        viewModel.profileImage.observe(viewLifecycleOwner, { uri ->
+            Glide.with(requireContext())
+                .load(uri)
+                .into(imageViewUser)
+        })
 
-        // Asignar los datos del usuario al ViewModel
-        viewModel.name = user.name
-        viewModel.lastName = user.lastName
-        viewModel.username = user.username
-        viewModel.email = user.email
-        viewModel.password = user.password
-        viewModel.profileImageUri = user.imageView
+        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_partidos -> {
+                    //Navegar al Fragmento del partido
+                    val fragment = MatchesFragment()
+                    replaceFragment(fragment)
+                    true
+                }
+                R.id.action_profile -> {
+                    //Mantenerse en el Fragmento del perfil
+                    true
+                }
 
-        // Aquí estableces los datos en los TextView correspondientes
-        textViewUserName.text = viewModel.name
-        textViewUserLastName.text = viewModel.lastName
-        textViewUsername.text = viewModel.username
-        textViewUserEmail.text = viewModel.email
-        textViewUserPassword.text = viewModel.password
+                R.id.action_ranking->{
+                    //Navegar al Fragmento del Ranking
+                    val fragment= RankingFragment()
+                    replaceFragment(fragment)
+                    true
+                }
 
-        // Cargar la imagen del usuario desde la referencia en la base de datos
-        // Supongamos que tienes la URL de la imagen del usuario almacenada en viewModel.profileImageUri
-        // Aquí debes usar alguna librería como Glide o Picasso para cargar la imagen en el ImageView
-        // Glide.with(this).load(viewModel.profileImageUri).into(imageViewUser)
+                R.id.action_tournament->{
+                    //Navegar al Fragmento del Torneo
+                    val fragment= TournamentFragment()
+                    replaceFragment(fragment)
+                    true
+                }
+                R.id.action_inicio->{
+                    //Navegar al Fragmento de Inicio
+                    val fragment= HomeFragment()
+                    replaceFragment(fragment)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+    private fun replaceFragment(fragment: Fragment) {
+        // Función para reemplazar el Fragment en tu contenedor principal
+        val transaction = requireActivity().supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 }

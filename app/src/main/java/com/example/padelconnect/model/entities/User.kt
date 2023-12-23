@@ -1,6 +1,6 @@
 package com.example.padelconnect.model.entities
 
-import android.widget.ImageView
+import android.net.Uri
 
 class User(
     val userId: String = "",
@@ -11,6 +11,6 @@ class User(
     val city: String = "",
     val country: String = "",
     val password:String = "",
-    val imageView: ImageView? = null
+    val imageView: Uri
 ){
 }

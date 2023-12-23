@@ -1,6 +1,7 @@
 package com.example.padelconnect.view
 
 import android.app.AlertDialog
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.padelconnect.R
-import com.example.padelconnect.modelView.RegisterViewModel
+import com.example.padelconnect.modelView.viewmodel.RegisterViewModel
 
 class RegisterFragment: Fragment() {
 
@@ -36,9 +37,7 @@ class RegisterFragment: Fragment() {
         val editTextUsername: EditText = view.findViewById(R.id.editTextUsername)
         val editTextEmail: EditText = view.findViewById(R.id.editTextEmail)
         val editTextPassword: EditText = view.findViewById(R.id.editTextPassword)
-        val imageViewProfile: ImageView = ImageView(context) // Donde "context" es el contexto actual, como el contexto de la actividad o el fragmento
-        // Asignar la imagen predeterminada desde los recursos
-        imageViewProfile.setImageResource(R.drawable.png_transparent_computer_icons_profile_s_free_angle_sphere_profile_cliparts_free)
+        val imageViewProfile: Uri = Uri.parse("android.resource://com.example.padelconnect/${R.drawable.png_transparent_computer_icons_profile_s_free_angle_sphere_profile_cliparts_free}")
         val editTextCity: EditText = view.findViewById(R.id.editTextCity)
         val editTextCountry: EditText = view.findViewById(R.id.editTextCountry)
         val buttonRegister: Button = view.findViewById(R.id.buttonRegister)
@@ -58,7 +57,7 @@ class RegisterFragment: Fragment() {
             viewModel.registerUser(name, lastName, username, email, password, city, country,imageViewProfile)
             viewModel.getRegisterResult().observe(viewLifecycleOwner, Observer { registerResult:Boolean ->
             if (registerResult) {
-                findNavController().navigate(R.id.action_registerFragment_to_matchesListFragment)
+                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
             } else {
                 AlertDialog.Builder(requireContext())
                     .setTitle("Error")

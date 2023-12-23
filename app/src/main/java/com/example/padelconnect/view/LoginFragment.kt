@@ -13,11 +13,13 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.padelconnect.R
-import com.example.padelconnect.modelView.LoginViewModel
+import com.example.padelconnect.modelView.viewmodel.LoginViewModel
+import com.example.padelconnect.modelView.viewmodel.ProfileViewModel
 
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
+    private lateinit var profileViewModel: ProfileViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -28,6 +30,7 @@ class LoginFragment : Fragment() {
 
         // Inicializar ViewModel
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+        profileViewModel= ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         // Referenciar los elementos de la vista (EditText, Button, TextView)
         val editTextUsername: EditText = view.findViewById(R.id.editTextUsername)
@@ -42,7 +45,8 @@ class LoginFragment : Fragment() {
             viewModel.login(username, password)
             viewModel.getLoginResult().observe(viewLifecycleOwner, Observer { loginResult:Boolean ->
                 if (loginResult) {
-                    findNavController().navigate(R.id.action_loginFragment_to_matchesListFragment)
+                    profileViewModel.obtenerDatosUsuario(username)
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 } else {
                     AlertDialog.Builder(requireContext())
                         .setTitle("Error")
