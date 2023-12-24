@@ -3,46 +3,47 @@ package com.example.padelconnect.view
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.padelconnect.R
+import com.example.padelconnect.databinding.FragmentHomeBinding
+import com.example.padelconnect.databinding.FragmentProfileBinding
 import com.example.padelconnect.model.entities.User
+import com.example.padelconnect.model.firebase.DatabaseConnection
 import com.example.padelconnect.modelView.viewmodel.ProfileViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
 
 @Suppress("DEPRECATION")
 class ProfileFragment: Fragment() {
 
     private lateinit var viewModel: ProfileViewModel
-    private lateinit var textViewUserName:TextView
-    private lateinit var textViewUserLastName:TextView
-    private lateinit var textViewUsername:TextView
-    private lateinit var textViewUserEmail:TextView
-    private lateinit var textViewUserPassword:TextView
-    private lateinit var imageViewUser:ImageView
-    private lateinit var bottomNavigationView:BottomNavigationView
+    private var _binding: FragmentProfileBinding?=null
+    private val binding get() = _binding!!
+
 
     @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflar el layout para este fragment
-        val view = inflater.inflate(R.layout.fragment_profile, container, false)
+        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
-        //Crear las variables para ponerlas el texto
-        textViewUserName = view.findViewById(/* id = */ R.id.textViewUserRealName)
-        textViewUserLastName = view.findViewById(R.id.textViewUserLastName)
-        textViewUsername = view.findViewById(R.id.textViewUsername)
-        textViewUserEmail = view.findViewById(R.id.textViewUserEmail)
-        textViewUserPassword = view.findViewById(R.id.textViewPassword)
-        imageViewUser = view.findViewById(R.id.imageViewUser)
-        bottomNavigationView = view.findViewById(R.id.bottomNavigationMenu)
+        _binding = FragmentProfileBinding.inflate(inflater, container, false)
+        val view:View = binding.root
+
+        (activity as AppCompatActivity).setSupportActionBar(binding.toolbar)
+
+        setHasOptionsMenu(true) // Habilitar la visualización del menú en este fragmento
 
 
         return view
@@ -50,31 +51,30 @@ class ProfileFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         // Observar los cambios en los LiveData y actualizar la interfaz de usuario cuando cambien
         viewModel.name.observe(viewLifecycleOwner, { name ->
-            textViewUserName.text = name
+            binding.textViewUserRealName.text = name
         })
         viewModel.lastName.observe(viewLifecycleOwner, { lastName ->
-            textViewUserLastName.text = lastName
+            binding.textViewUserLastName.text = lastName
         })
         viewModel.username.observe(viewLifecycleOwner, { username ->
-            textViewUsername.text = username
+            binding.textViewUsername.text = username
         })
         viewModel.email.observe(viewLifecycleOwner, { email ->
-            textViewUserEmail.text = email
+            binding.textViewUserEmail.text = email
         })
         viewModel.password.observe(viewLifecycleOwner, { password ->
-            textViewUserPassword.text = password
+            binding.textViewUserPassword.text = password
         })
         viewModel.profileImage.observe(viewLifecycleOwner, { uri ->
             Glide.with(requireContext())
                 .load(uri)
-                .into(imageViewUser)
+                .into(binding.imageViewUser)
         })
 
-        bottomNavigationView.setOnNavigationItemSelectedListener { menuItem ->
+        binding.bottomNavigationMenu.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_partidos -> {
                     //Navegar al Fragmento del partido
@@ -117,4 +117,50 @@ class ProfileFragment: Fragment() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                val fragment= SettingsFragment()
+                replaceFragment(fragment)
+                true
+            }
+            R.id.action_matches_favorites ->{
+                true
+            }
+            R.id.action_matches_played->{
+                true
+            }
+            R.id.action_profile->{
+                val auth = DatabaseConnection.getAuthInstance()
+                val currentUser = auth.currentUser
+                // Verificar si el usuario actual está logeado
+                val isLoggedIn = currentUser != null
+                    if (isLoggedIn) {
+                        // Si el usuario está logeado, dirigir a una pantalla
+                        // Suponiendo que la pantalla logeada sea ProfileFragment
+                        val fragment = ProfileFragment()
+                        replaceFragment(fragment)
+                    } else {
+                        // Si el usuario no está logeado, dirigir a otra pantalla
+                        // Suponiendo que la pantalla no logeada sea LoginFragment
+                        val fragment = LoginFragment()
+                        replaceFragment(fragment)
+                    }
+                true
+            }
+            // Agrega más casos según los elementos de tu menú
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
 }

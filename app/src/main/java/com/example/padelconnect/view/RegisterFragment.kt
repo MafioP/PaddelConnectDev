@@ -14,44 +14,38 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.padelconnect.R
+import com.example.padelconnect.databinding.FragmentHomeBinding
+import com.example.padelconnect.databinding.FragmentRegisterBinding
 import com.example.padelconnect.modelView.viewmodel.RegisterViewModel
 
 class RegisterFragment: Fragment() {
 
     private lateinit var viewModel: RegisterViewModel
-
+    private var _binding: FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_register, container, false)
-
         // Inicializar ViewModel
         viewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
 
+        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        val root: View = binding.root
 
-        // Referenciar los elementos de la vista (EditText, Button, ImageView)
-        val editTextName: EditText = view.findViewById(R.id.editTextName)
-        val editTextLastName: EditText = view.findViewById(R.id.editTextLastName)
-        val editTextUsername: EditText = view.findViewById(R.id.editTextUsername)
-        val editTextEmail: EditText = view.findViewById(R.id.editTextEmail)
-        val editTextPassword: EditText = view.findViewById(R.id.editTextPassword)
+        // Imagen por defecto para el perfil
         val imageViewProfile: Uri = Uri.parse("android.resource://com.example.padelconnect/${R.drawable.png_transparent_computer_icons_profile_s_free_angle_sphere_profile_cliparts_free}")
-        val editTextCity: EditText = view.findViewById(R.id.editTextCity)
-        val editTextCountry: EditText = view.findViewById(R.id.editTextCountry)
-        val buttonRegister: Button = view.findViewById(R.id.buttonRegister)
-
 
         // Manejar clic en el botón de registro
-        buttonRegister.setOnClickListener {
-            val name = editTextName.text.toString()
-            val lastName = editTextLastName.text.toString()
-            val username = editTextUsername.text.toString()
-            val email = editTextEmail.text.toString()
-            val password = editTextPassword.text.toString()
-            val city = editTextCity.text.toString()
-            val country = editTextCountry.text.toString()
+        binding.buttonRegister.setOnClickListener {
+            val name = binding.editTextName.text.toString()
+            val lastName = binding.editTextLastName.text.toString()
+            val username = binding.editTextUsername.text.toString()
+            val email = binding.editTextEmail.text.toString()
+            val password = binding.editTextPassword.text.toString()
+            val city = binding.editTextCity.text.toString()
+            val country = binding.editTextCountry.text.toString()
 
             // Llamar al ViewModel para realizar el registro
             viewModel.registerUser(name, lastName, username, email, password, city, country,imageViewProfile)

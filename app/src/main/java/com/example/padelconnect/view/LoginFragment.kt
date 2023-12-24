@@ -13,6 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.padelconnect.R
+import com.example.padelconnect.databinding.FragmentHomeBinding
+import com.example.padelconnect.databinding.FragmentLoginBinding
 import com.example.padelconnect.modelView.viewmodel.LoginViewModel
 import com.example.padelconnect.modelView.viewmodel.ProfileViewModel
 
@@ -20,47 +22,46 @@ class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
     private lateinit var profileViewModel: ProfileViewModel
+    private var _binding: FragmentLoginBinding? =null
+
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        val view: View = binding.root
 
         // Inicializar ViewModel
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        profileViewModel= ViewModelProvider(this).get(ProfileViewModel::class.java)
-
-        // Referenciar los elementos de la vista (EditText, Button, TextView)
-        val editTextUsername: EditText = view.findViewById(R.id.editTextUsername)
-        val editTextPassword: EditText = view.findViewById(R.id.editTextPassword)
-        val buttonLogin: Button = view.findViewById(R.id.buttonLogin)
-        val textViewRegister: TextView = view.findViewById(R.id.textViewRegister)
+        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
 
         // Manejar clic en el botón de inicio de sesión
-        buttonLogin.setOnClickListener {
-            val username = editTextUsername.text.toString()
-            val password = editTextPassword.text.toString()
+        binding.buttonLogin.setOnClickListener {
+            val username = binding.editTextUsername.text.toString()
+            val password = binding.editTextPassword.text.toString()
             viewModel.login(username, password)
-            viewModel.getLoginResult().observe(viewLifecycleOwner, Observer { loginResult:Boolean ->
-                if (loginResult) {
-                    profileViewModel.obtenerDatosUsuario(username)
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                } else {
-                    AlertDialog.Builder(requireContext())
-                        .setTitle("Error")
-                        .setMessage("Usuario o contraseña incorrectos")
-                        .setPositiveButton("Aceptar", null)
-                        .show()
-                }
-            })
-        }
-        // Manejar clic en el texto de registro
-        textViewRegister.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+            viewModel.getLoginResult()
+                .observe(viewLifecycleOwner, Observer { loginResult: Boolean ->
+                    if (loginResult) {
+                        profileViewModel.obtenerDatosUsuario(username)
+                        findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    } else {
+                        AlertDialog.Builder(requireContext())
+                            .setTitle("Error")
+                            .setMessage("Usuario o contraseña incorrectos")
+                            .setPositiveButton("Aceptar", null)
+                            .show()
+                    }
+                })
         }
 
+        // Manejar clic en el texto de registro
+        binding.textViewRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
+        }
         return view
     }
 }
