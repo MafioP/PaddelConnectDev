@@ -43,7 +43,7 @@ class RegisterViewModel: ViewModel(){
                                 // Obtener la URL de descarga de la imagen
                                 imageRef.downloadUrl.addOnSuccessListener { uri ->
                                     // Crear un objeto con los datos del usuario, incluyendo la URL de la imagen de perfil
-                                    val user = userId?.let { User(it, name, lastName, username, email, city, country, uri.toString()) }
+                                    val user = userId?.let { User(it, name, lastName, username, email, city, country, "", uri) }
 
                                     // Guardar los datos del usuario en la base de datos (Firebase Realtime Database)
                                     if (userId != null) {

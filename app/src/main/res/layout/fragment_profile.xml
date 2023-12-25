@@ -29,7 +29,8 @@
                 android:layout_width="177dp"
                 android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:src="@drawable/dalle_2023_10_15_18_52_23___illustration_of_a_sleek_and_minimalist_logo_for_padelconnect__the_design_should_seamlessly_merge_a_padel_racket_and_a_connectivity_symbol_or_network_photoroom_png_photoroom" />
+                android:src="@drawable/common_google_signin_btn_icon_light" />
+
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
