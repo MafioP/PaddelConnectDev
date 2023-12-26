@@ -9,4 +9,5 @@
     <color name="purple_700">#7B1FA2</color>
     <color name="teal_200">#80CBC4</color>
     <color name="teal_700">#00796B</color>
+    <color name="dividerColor">#FFC0C0C0</color>
 </resources>
