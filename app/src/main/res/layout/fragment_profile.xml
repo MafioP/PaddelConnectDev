@@ -29,7 +29,7 @@
                 android:layout_width="177dp"
                 android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:src="@drawable/common_google_signin_btn_icon_light" />
+                android:src="@drawable/ic_padleconnect_logo" />
 
         </androidx.appcompat.widget.Toolbar>
 
