@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.padelconnect"
+    namespace = "com.uva.padelconnect"
     compileSdk = 33
 
     defaultConfig {
-        applicationId = "com.example.padelconnect"
+        applicationId = "com.uva.padelconnect"
         minSdk = 31
         targetSdk = 33
         versionCode = 1

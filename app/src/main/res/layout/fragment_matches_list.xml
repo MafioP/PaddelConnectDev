@@ -16,7 +16,7 @@
         android:background="@color/white">
 
         <!-- Encabezado -->
-        <include layout="@layout/HeaderView"
+        <include layout="@layout/header_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -32,7 +32,7 @@
         </androidx.core.widget.NestedScrollView>
 
 
-        <include layout="@layout/FooterView"
+        <include layout="@layout/footer_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true" />
