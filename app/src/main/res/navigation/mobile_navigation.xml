@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.uva.padelconnect.view.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.uva.padelconnect.view.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login" />
+
+    <fragment
+        android:id="@+id/matchesListFragment"
+        android:name="com.uva.padelconnect.view.MatchesFragment"
+        android:label="MatchesListFragment"
+        tools:layout="@layout/fragment_matches_list" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.uva.padelconnect.view.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_register" />
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.uva.padelconnect.view.ProfileFragment"
+        android:label="ProfileFragment"
+        tools:layout="@layout/fragment_profile" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.uva.padelconnect.view.RegisterFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home"/>
+
+    <fragment
+        android:id="@+id/tournamentFragment"
+        android:name="com.uva.padelconnect.view.TournamentFragment"
+        android:label="TournamentFragment"
+        tools:layout="@layout/fragment_tournament" />
+
+    <fragment
+        android:id="@+id/matchFragment"
+        android:name="com.uva.padelconnect.view.MatchDetailsFragment"
+        android:label="MatchDetailsFragment"
+        tools:layout="@layout/fragment_match_details" />
+
+
+    <!-- Definir la acción para navegar de loginFragment a homeFragment -->
+    <action
+        android:id="@+id/action_loginFragment_to_homeFragment"
+        app:destination="@id/homeFragment" />
+
+    <!-- Definir la acción para navegar de registerFragment a homeFragment -->
+    <action
+        android:id="@+id/action_registerFragment_to_homeFragment"
+        app:destination="@id/homeFragment" />
+
+    <!-- Definir la acción para navegar de loginFragment a registerFragment -->
+    <action
+        android:id="@+id/action_loginFragment_to_registerFragment"
+        app:destination="@id/registerFragment" />
+
+    <!-- Definir la accion para navegar de homeFragment a matchesFragment-->
+    <action
+        android:id="@+id/action_homeFragment_to_matchesFragment"
+        app:destination="@id/matchesListFragment" />
+
+    <!-- Definir la accion para navegar de homeFragment a tournamentsFragment-->
+    <action
+        android:id="@+id/action_homeFragment_to_tournamentFragment"
+        app:destination="@id/tournamentFragment" />
+
+    <!-- Definir la accion para navegar de homeFragment a profileFragment-->
+    <action
+        android:id="@+id/action_homeFragment_to_profileFragment"
+        app:destination="@id/profileFragment" />
+
+    <!-- Definir la accion para navegar de la lista de Partidos a los detalles-->
+    <action
+        android:id="@+id/action_matchesListFragment_to_matchFragment"
+        app:destination="@id/matchFragment"/>
+
+</navigation>

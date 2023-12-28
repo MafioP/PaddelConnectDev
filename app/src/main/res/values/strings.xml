@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">PadelConnect</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Configuracion</string>
+    <string name="action_matches_played">Historial de Partidos</string>
+    <string name="action_matches_favorites">Partidos Favoritos</string>
+    <string name="action_profile">Log In/Register</string>
+
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_matches">Partidos</string>
+    <string name="menu_tournaments">Torneos</string>
+    <string name="menu_home">Inicio</string>
+    <string name="menu_ranking">Ranking</string>
+    <string name="menu_profile">Perfil</string>
+</resources>

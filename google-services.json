@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "456180206737",
+    "project_id": "padelconnect-5e578",
+    "storage_bucket": "padelconnect-5e578.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:456180206737:android:a054c94ead9c9e57d7c330",
+        "android_client_info": {
+          "package_name": "com.uva.padelconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "456180206737-nrl109u179fbb9unhi63knmcgqefrcif.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLdzFmsJIYJ0wNyMrfgGiaqVM7WDRb8Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "456180206737-nrl109u179fbb9unhi63knmcgqefrcif.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
