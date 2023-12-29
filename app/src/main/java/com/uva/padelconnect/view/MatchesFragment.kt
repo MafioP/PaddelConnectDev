@@ -5,13 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.auth
 import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
+import com.uva.padelconnect.modelView.repositories.MatchRepository
+import com.uva.padelconnect.modelView.viewmodel.LoginViewModel
+import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
+import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
 class MatchesFragment :Fragment(){
+    private lateinit var matchesViewModel: MatchesViewModel
+    private lateinit var usersViewModel:UsersSessionViewModel
     private var columnCount = 1
     private lateinit var recyclerView: RecyclerView
 
@@ -23,21 +33,31 @@ class MatchesFragment :Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        matchesViewModel = ViewModelProvider(this).get(MatchesViewModel::class.java)
+        usersViewModel = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
+
         val view = inflater.inflate(R.layout.fragment_matches_list, container, false)
         recyclerView = view.findViewById(R.id.recyclerViewMatches)
         recyclerView.layoutManager = when {
             columnCount <= 1 -> LinearLayoutManager(context)
             else -> GridLayoutManager(context, columnCount)
         }
-
-        /**
-         * TODO:: Hay que obtener los partidos y pasarselos al MatchesAdapter
-         */
-        var matches:List<Match>
         // Inicializar el adaptador (puedes pasar datos vacíos inicialmente)
-        val adapter = MatchesAdapter(matches)
+        val adapter = MatchesAdapter()
         // Establecer el adaptador en el RecyclerView
         recyclerView.adapter = adapter
+
+        if(usersViewModel.city!=null){
+            usersViewModel.city.observe(viewLifecycleOwner) { city ->
+                matchesViewModel.getMatchesByCity(city)
+            }
+        }else{
+            matchesViewModel.getMatches()
+        }
+
+        matchesViewModel.matchesLiveData.observe(viewLifecycleOwner) { matches ->
+            adapter.submitList(matches)
+        }
 
         return view
     }

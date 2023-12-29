@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uva.padelconnect.modelView.repositories.UserRepository
 
-class ProfileViewModel: ViewModel() {
+class UsersSessionViewModel: ViewModel() {
     private val userRepository:UserRepository= UserRepository()
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
@@ -20,8 +20,12 @@ class ProfileViewModel: ViewModel() {
     val password: LiveData<String> = _password
     private val _profileImage = MutableLiveData<Uri>()
     val profileImage: LiveData<Uri> = _profileImage
+    private val _city = MutableLiveData<String>()
+    val city: LiveData<String> = _city
+    private val _country = MutableLiveData<String>()
+    val country: LiveData<String> = _country
 
-    public fun obtenerDatosUsuario(username:String ) {
+     fun obtenerDatosUsuario(username:String ) {
         userRepository.obtenerUsuario(username){user ->
             if(user!=null){
                 // Asignar los datos del usuario al ViewModel
@@ -31,6 +35,8 @@ class ProfileViewModel: ViewModel() {
                 _email.value = user.email
                 _password.value = user.password
                 _profileImage.value = user.imageView
+                _city.value=user.city
+                _country.value=user.country
             }
         }
     }

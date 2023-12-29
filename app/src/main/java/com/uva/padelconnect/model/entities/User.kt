@@ -2,7 +2,7 @@ package com.uva.padelconnect.model.entities
 
 import android.net.Uri
 
-class User(
+data class User(
     val userId: String = "",
     val name: String = "",
     val lastName: String = "",

@@ -124,7 +124,7 @@
 
                 <!-- Botón para agregar participantes -->
                 <ImageButton
-                    android:id="@+id/buttonAddParticipant"
+                    android:id="@+id/perfil4"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:background="?attr/selectableItemBackgroundBorderless"

@@ -12,12 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.uva.padelconnect.R
 import com.uva.padelconnect.databinding.FragmentLoginBinding
 import com.uva.padelconnect.modelView.viewmodel.LoginViewModel
-import com.uva.padelconnect.modelView.viewmodel.ProfileViewModel
+import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
 class LoginFragment : Fragment() {
 
     private lateinit var viewModel: LoginViewModel
-    private lateinit var profileViewModel: ProfileViewModel
+    private lateinit var usersSessionViewModel: UsersSessionViewModel
     private var _binding: FragmentLoginBinding? =null
 
     private val binding get() = _binding!!
@@ -32,7 +32,7 @@ class LoginFragment : Fragment() {
 
         // Inicializar ViewModel
         viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
-        profileViewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        usersSessionViewModel = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
 
         // Manejar clic en el botón de inicio de sesión
         binding.buttonLogin.setOnClickListener {
@@ -42,7 +42,7 @@ class LoginFragment : Fragment() {
             viewModel.getLoginResult()
                 .observe(viewLifecycleOwner, Observer { loginResult: Boolean ->
                     if (loginResult) {
-                        profileViewModel.obtenerDatosUsuario(username)
+                        usersSessionViewModel.obtenerDatosUsuario(username)
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
                         AlertDialog.Builder(requireContext())

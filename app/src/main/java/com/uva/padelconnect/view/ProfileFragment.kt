@@ -15,12 +15,12 @@ import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.databinding.FragmentProfileBinding
 import com.uva.padelconnect.model.firebase.DatabaseConnection
-import com.uva.padelconnect.modelView.viewmodel.ProfileViewModel
+import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
 @Suppress("DEPRECATION")
 class ProfileFragment: Fragment() {
 
-    private lateinit var viewModel: ProfileViewModel
+    private lateinit var viewModel: UsersSessionViewModel
     private var _binding: FragmentProfileBinding?=null
     private val binding get() = _binding!!
 
@@ -30,7 +30,7 @@ class ProfileFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
 
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view:View = binding.root

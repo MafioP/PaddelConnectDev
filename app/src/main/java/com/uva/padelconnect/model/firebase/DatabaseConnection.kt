@@ -30,6 +30,11 @@ object DatabaseConnection {
         return firebaseDatabase!!.reference.child("users")
     }
 
+    fun getMatchesReference(): DatabaseReference {
+        getDatabaseReference()
+        return firebaseDatabase!!.reference.child("matches")
+    }
+
     fun getImageStorageReference(userId: String?): StorageReference {
         getStorageReference()
         return firebaseStorage!!.reference.child("images/$userId/profile.jpg")
