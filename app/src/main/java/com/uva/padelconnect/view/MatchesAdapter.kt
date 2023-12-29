@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
 
@@ -37,11 +38,33 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
 
     // Asignar datos a las vistas en cada elemento de la lista
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
-
         val match = matches[position]
         holder.textViewDate.text = match.date.toString()
         holder.textViewLocation.text = match.place
-        holder.perfil1.
+        if (match.profileImageUrls.isNotEmpty()) {
+            Glide.with(holder.itemView)
+                .load(match.profileImageUrls[0]) // URL de la primera imagen de perfil
+                .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
+                .error(R.drawable.error_image) // Imagen de error si la carga falla
+                .into(holder.perfil1) // ImageView donde se muestra la imagen
+            Glide.with(holder.itemView)
+                .load(match.profileImageUrls[2]) // URL de la primera imagen de perfil
+                .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
+                .error(R.drawable.error_image) // Imagen de error si la carga falla
+                .into(holder.perfil3) // ImageView donde se muestra la imagen
+            if (match.doubles) {
+                Glide.with(holder.itemView)
+                    .load(match.profileImageUrls[1]) // URL de la primera imagen de perfil
+                    .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
+                    .error(R.drawable.error_image) // Imagen de error si la carga falla
+                    .into(holder.perfil2) // ImageView donde se muestra la imagen
+                Glide.with(holder.itemView)
+                    .load(match.profileImageUrls[3]) // URL de la primera imagen de perfil
+                    .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
+                    .error(R.drawable.error_image) // Imagen de error si la carga falla
+                    .into(holder.perfil4) // ImageView donde se muestra la imagen
+            }
+        }
         holder.buttonArrow2.setOnClickListener {
             holder.itemView.findNavController().navigate(R.id.action_matchesListFragment_to_matchFragment)
         }
