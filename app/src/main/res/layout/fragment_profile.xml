@@ -6,34 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
     <!-- activity_main.xml -->
-    <!-- AppBarLayout -->
 
-    <com.google.android.material.appbar.AppBarLayout
+    <!-- Encabezado -->
+    <include layout="@layout/header_view"
+        android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="15dp"
-        tools:ignore="MissingConstraints">
-
-        <!-- Toolbar o ActionBar -->
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white">
-
-            <!-- Agrega un ImageView para la imagen de la empresa -->
-            <ImageView
-                android:id="@+id/imageViewCompanyLogo"
-                android:layout_width="177dp"
-                android:layout_height="22dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_padleconnect_logo" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
+        android:layout_height="wrap_content"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -211,13 +189,21 @@
             </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationMenu"
+
+    <include layout="@layout/footer_view"
+        android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        app:itemIconSize="24dp"
-        app:itemTextAppearance="@style/BottomNavigationViewText"
-        app:menu="@menu/bottom_navigation_menu"/>
+        android:layout_alignParentBottom="true" />
+
+    <!-- Menú desplegable -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:menu="@menu/main"
+        tools:ignore="MissingConstraints">
+    </com.google.android.material.navigation.NavigationView>
 
 </RelativeLayout >

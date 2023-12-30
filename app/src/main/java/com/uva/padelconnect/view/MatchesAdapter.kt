@@ -44,24 +44,24 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
         if (match.profileImageUrls.isNotEmpty()) {
             Glide.with(holder.itemView)
                 .load(match.profileImageUrls[0]) // URL de la primera imagen de perfil
-                .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
-                .error(R.drawable.error_image) // Imagen de error si la carga falla
+                .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
                 .into(holder.perfil1) // ImageView donde se muestra la imagen
             Glide.with(holder.itemView)
                 .load(match.profileImageUrls[2]) // URL de la primera imagen de perfil
                 .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
-                .error(R.drawable.error_image) // Imagen de error si la carga falla
+                .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
                 .into(holder.perfil3) // ImageView donde se muestra la imagen
             if (match.doubles) {
                 Glide.with(holder.itemView)
                     .load(match.profileImageUrls[1]) // URL de la primera imagen de perfil
                     .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
-                    .error(R.drawable.error_image) // Imagen de error si la carga falla
+                    .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
                     .into(holder.perfil2) // ImageView donde se muestra la imagen
                 Glide.with(holder.itemView)
                     .load(match.profileImageUrls[3]) // URL de la primera imagen de perfil
                     .placeholder(R.drawable.placeholder) // Placeholder mientras carga la imagen
-                    .error(R.drawable.error_image) // Imagen de error si la carga falla
+                    .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
                     .into(holder.perfil4) // ImageView donde se muestra la imagen
             }
         }

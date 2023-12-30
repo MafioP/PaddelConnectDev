@@ -1,5 +1,6 @@
 package com.uva.padelconnect.modelView.repositories
 
+import android.net.Uri
 import com.uva.padelconnect.model.entities.User
 import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.google.firebase.database.DataSnapshot
@@ -34,5 +35,17 @@ class UserRepository {
                 callback(null) // Llamar al callback con null en caso de error
             }
         })
+    }
+    fun editarUsuario(userId: String, name: String, lastName: String, username: String, password : String, city: String, country: String,perfilUri:Uri){
+        usersAccess.child(userId).apply {
+            child("name").setValue(name)
+            child("lastName").setValue(lastName)
+            child("username").setValue(username)
+            child("password").setValue(password)
+            child("city").setValue(city)
+            child("country").setValue(country)
+            child("imageView").setValue(perfilUri)
+        }
+
     }
 }

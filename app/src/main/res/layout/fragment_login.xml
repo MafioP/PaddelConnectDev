@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:src="@tools:sample/avatars"
         tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="113dp" />
+        tools:layout_editor_absoluteY="113dp"
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/editTextUsername"

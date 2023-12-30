@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_profile"
+        android:orderInCategory="100"
+        android:title="@string/menu_profile"
+        android:icon="@drawable/ic_foto_perfil"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"
@@ -18,12 +25,6 @@
         android:orderInCategory="100"
         android:title="@string/action_matches_played"
         android:icon="@drawable/ic_played"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_profile"
-        android:orderInCategory="100"
-        android:title="@string/menu_profile"
-        android:icon="@drawable/ic_foto_perfil"
         app:showAsAction="never" />
 
 </menu>

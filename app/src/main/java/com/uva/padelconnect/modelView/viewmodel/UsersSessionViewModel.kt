@@ -4,10 +4,12 @@ import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.uva.padelconnect.model.entities.User
 import com.uva.padelconnect.modelView.repositories.UserRepository
 
 class UsersSessionViewModel: ViewModel() {
     private val userRepository:UserRepository= UserRepository()
+    private lateinit var userId:String
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
     private val _lastName = MutableLiveData<String>()
@@ -28,6 +30,7 @@ class UsersSessionViewModel: ViewModel() {
      fun obtenerDatosUsuario(username:String ) {
         userRepository.obtenerUsuario(username){user ->
             if(user!=null){
+                userId=user.userId
                 // Asignar los datos del usuario al ViewModel
                 _name.value = user.name
                 _lastName.value = user.lastName
@@ -39,5 +42,16 @@ class UsersSessionViewModel: ViewModel() {
                 _country.value=user.country
             }
         }
+    }
+
+    fun actualizarDatos(name: String, lastName: String, username: String,password:String, city: String, country: String, imageViewUri: Uri){
+        _name.value = name
+        _lastName.value = lastName
+        _username.value = username
+        _password.value = password
+        _profileImage.value = imageViewUri
+        _city.value=city
+        _country.value=country
+        userRepository.editarUsuario(userId,name,lastName,username,password,city,country,imageViewUri)
     }
 }
