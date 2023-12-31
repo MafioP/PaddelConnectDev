@@ -1,15 +1,21 @@
 package com.uva.padelconnect.modelView.repositories
 
 import android.net.Uri
+import com.google.firebase.auth.FirebaseAuth
 import com.uva.padelconnect.model.entities.User
-import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.StorageReference
+import com.uva.padelconnect.model.firebase.DatabaseConnection.getAuthInstance
+import com.uva.padelconnect.model.firebase.DatabaseConnection.getImageStorageReference
+import com.uva.padelconnect.model.firebase.DatabaseConnection.getUsersReference
 
 class UserRepository {
-    private var usersAccess :DatabaseReference = DatabaseConnection.getUsersReference()
+    private val firebaseAuth: FirebaseAuth = getAuthInstance()
+    private var usersAccess :DatabaseReference = getUsersReference()
+    private lateinit var imageAccess:StorageReference
 
     fun obtenerUsuario(username: String, callback: (User?) -> Unit){
         // Lógica para obtener los datos del usuario desde Firebase
@@ -36,7 +42,7 @@ class UserRepository {
             }
         })
     }
-    fun editarUsuario(userId: String, name: String, lastName: String, username: String, password : String, city: String, country: String,perfilUri:Uri){
+    fun editarUsuario(userId: String, name: String, lastName: String, username: String, password : String, city: String, country: String,perfilUri:Uri,callback: (Boolean) -> Unit){
         usersAccess.child(userId).apply {
             child("name").setValue(name)
             child("lastName").setValue(lastName)
@@ -44,8 +50,66 @@ class UserRepository {
             child("password").setValue(password)
             child("city").setValue(city)
             child("country").setValue(country)
-            child("imageView").setValue(perfilUri)
         }
+        imageAccess = getImageStorageReference(userId) // Ruta en Firebase Storage para la imagen de perfil
 
+        // Actualizar la imagen en Firebase Storage
+        imageAccess.putFile(perfilUri).addOnCompleteListener { uploadTask ->
+                if (uploadTask.isSuccessful) {
+                    // Obtener la URL de descarga de la imagen actualizada
+                    imageAccess.downloadUrl.addOnSuccessListener { uri ->
+                        // Actualizar la URL de la imagen en la base de datos
+                        usersAccess.child(userId).child("imageView").setValue(uri.toString())
+                            .addOnCompleteListener { databaseTask ->
+                                if (databaseTask.isSuccessful) {
+                                    callback(true)
+                                } else {
+                                   callback(false)
+                                }
+                            }
+                    }
+                } else {
+                    callback(false)
+                }
+            }
+    }
+    fun registrarUsuario(email:String,name:String,lastName:String,username:String,password:String,city:String,country:String,perfilUri: Uri, callback: (Boolean) -> Unit) {
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val currentUser = firebaseAuth.currentUser
+                    val userId = currentUser?.uid
+
+                    if (userId != null) {
+                        editarUsuario(userId, name, lastName, username, password, city, country,perfilUri) { success ->
+                            if (success) {
+                                val imageAccess = getImageStorageReference(userId)
+                                imageAccess.putFile(perfilUri).addOnCompleteListener { uploadTask ->
+                                    if (uploadTask.isSuccessful) {
+                                        imageAccess.downloadUrl.addOnSuccessListener { uri ->
+                                            usersAccess.child(userId).child("imageView").setValue(uri.toString())
+                                                .addOnCompleteListener { databaseTask ->
+                                                    if (databaseTask.isSuccessful) {
+                                                        callback(true)
+                                                    } else {
+                                                        callback(false)
+                                                    }
+                                                }
+                                        }
+                                    } else {
+                                        callback(false)
+                                    }
+                                }
+                            } else {
+                                callback(false)
+                            }
+                        }
+                    } else {
+                        callback(false)
+                    }
+                } else {
+                    callback(false)
+                }
+            }
     }
 }

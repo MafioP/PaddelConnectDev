@@ -30,6 +30,11 @@ class RegisterFragment: Fragment() {
         _binding = FragmentRegisterBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        return root
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         // Imagen por defecto para el perfil
         val imageViewProfile: Uri = Uri.parse("android.resource://com.example.padelconnect/${R.drawable.png_transparent_computer_icons_profile_s_free_angle_sphere_profile_cliparts_free}")
 
@@ -46,18 +51,18 @@ class RegisterFragment: Fragment() {
             // Llamar al ViewModel para realizar el registro
             viewModel.registerUser(name, lastName, username, email, password, city, country,imageViewProfile)
             viewModel.getRegisterResult().observe(viewLifecycleOwner, Observer { registerResult:Boolean ->
-            if (registerResult) {
-                findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
-            } else {
-                AlertDialog.Builder(requireContext())
-                    .setTitle("Error")
-                    .setMessage("Ha habido un problema al crear el usuario\nPor favor, intentelo de nuevo")
-                    .setPositiveButton("Aceptar", null)
-                    .show()
-            }
-        })
+                if (registerResult) {
+                    findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
+                } else {
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Error")
+                        .setMessage("Ha habido un problema al crear el usuario\nPor favor, intentelo de nuevo")
+                        .setPositiveButton("Aceptar", null)
+                        .show()
+                }
+            })
         }
-        return view
     }
+
 }
 

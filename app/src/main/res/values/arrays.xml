@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="type_options">
+        <item>Partido</item>
+        <item>Torneo</item>
+    </string-array>
+    <string-array name="match_options">
+        <item>Publico</item>
+        <item>Privado</item>
+    </string-array>
+</resources>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="15dp"
+        tools:ignore="MissingConstraints">
+
+        <!-- Toolbar o ActionBar -->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <!-- Agrega un ImageView para el icono de hamburguesa -->
+            <ImageView
+                android:id="@+id/imageViewMenu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                android:src="@drawable/ic_menu" />
+
+            <!-- Agrega un ImageView para la imagen de la empresa -->
+            <ImageView
+                android:id="@+id/imageViewCompanyLogo"
+                android:layout_width="177dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_padleconnect_logo" />
+
+            <ImageButton
+                android:id="@+id/add"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_add" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+        <!-- Selector para elegir partido o torneo -->
+        <TextView
+            android:id="@+id/textViewType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Tipo:"
+            android:textSize="20sp"/>
+        <Spinner
+            android:id="@+id/spinnerType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_large"
+            android:entries="@array/type_options" />
+
+        <!-- Selector para público/privado -->
+        <TextView
+            android:id="@+id/textViewPrivacity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Privacidad:"
+            android:textSize="20sp"/>
+        <Spinner
+            android:id="@+id/spinnerMatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="@dimen/text_size_large"
+            android:entries="@array/match_options" />
+
+        <!-- Selector para elegir partido o torneo -->
+        <TextView
+            android:id="@+id/textViewDoubles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Dobles:"
+            android:textSize="20sp"/>
+        <Spinner
+            android:id="@+id/spinnerDoubles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_large"
+            android:entries="@array/type_options" />
+
+        <!-- Otros campos: nombre, fecha, lugar, enlace -->
+        <TextView
+            android:id="@+id/textViewName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewUserLastName"
+            android:layout_marginTop="10dp"
+            android:text="Nombre:"
+            android:textSize="20sp" />
+
+        <EditText
+            android:id="@+id/textViewMatchName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewName"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:text="" />
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewMatchName"
+            android:layout_marginTop="10dp"
+            android:text="Fecha:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDate"
+            android:ems="10"
+            android:inputType="date" />
+
+        <TextView
+            android:id="@+id/textViewPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewDate"
+            android:layout_marginTop="10dp"
+            android:text="Lugar:"
+            android:textSize="20sp"/>
+
+        <EditText
+            android:id="@+id/editTextPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewPlace"
+            android:inputType="textPostalAddress" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/editTextLink"
+            android:layout_width="250dp"
+            android:layout_height="45dp"
+            android:text="Introduce el enlace"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/buttonCopyLink"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <Button
+            android:id="@+id/buttonCopyLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Copiar Enlace"
+            android:layout_marginLeft="5dp"
+            app:layout_constraintStart_toEndOf="@+id/editTextLink"
+            app:layout_constraintTop_toTopOf="@+id/editTextLink"
+            app:layout_constraintBottom_toBottomOf="@+id/editTextLink" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- Botón para crear partido/torneo -->
+        <Button
+            android:id="@+id/buttonCreateMatch"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:text="Crear"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemIconSize="24dp"
+        app:itemTextAppearance="@style/BottomNavigationViewText"
+        app:menu="@menu/bottom_navigation_menu" />
+
+</LinearLayout>
