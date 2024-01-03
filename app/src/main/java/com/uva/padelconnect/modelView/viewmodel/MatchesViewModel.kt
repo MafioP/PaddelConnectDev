@@ -23,5 +23,16 @@ class MatchesViewModel: ViewModel() {
         }
 
     }
+    fun createMatch(
+        name: String,
+        date: Any?,
+        place: String,
+        matchType: String,
+        matchPriv: String,
+        matchDoubles: String
+    ) {
+        matchRepository.createMatch()
+    }
+
 
 }

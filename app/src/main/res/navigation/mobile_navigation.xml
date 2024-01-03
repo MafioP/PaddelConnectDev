@@ -3,19 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.uva.padelconnect.view.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.uva.padelconnect.view.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login" />
+    app:startDestination="@id/itemFragment">
 
     <fragment
         android:id="@+id/matchesListFragment"
@@ -39,13 +27,12 @@
         android:id="@+id/homeFragment"
         android:name="com.uva.padelconnect.view.RegisterFragment"
         android:label="HomeFragment"
-        tools:layout="@layout/fragment_home"/>
+        tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/tournamentFragment"
-        android:name="com.uva.padelconnect.view.TournamentFragment"
-        android:label="TournamentFragment"
-        tools:layout="@layout/fragment_tournament" />
+        android:name="com.uva.padelconnect.view.HomeFragment"
+        android:label="TournamentFragment" />
 
     <fragment
         android:id="@+id/matchFragment"
@@ -87,6 +74,11 @@
     <!-- Definir la accion para navegar de la lista de Partidos a los detalles-->
     <action
         android:id="@+id/action_matchesListFragment_to_matchFragment"
-        app:destination="@id/matchFragment"/>
+        app:destination="@id/matchFragment" />
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="com.uva.padelconnect.ItemFragment"
+        android:label="fragment_item_list"
+        tools:layout="@layout/fragment_item_list" />
 
 </navigation>

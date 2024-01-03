@@ -52,6 +52,10 @@ class UsersSessionViewModel: ViewModel() {
         _profileImage.value = imageViewUri
         _city.value=city
         _country.value=country
-        userRepository.editarUsuario(userId,name,lastName,username,password,city,country,imageViewUri)
+        userRepository.editarUsuario(userId,name,lastName,username,password,city,country,imageViewUri) { success ->
+            if (success) {
+                //update succesful
+            }
+        }
     }
 }
