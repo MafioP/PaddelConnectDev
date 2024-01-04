@@ -4,8 +4,12 @@
         <item>Partido</item>
         <item>Torneo</item>
     </string-array>
-    <string-array name="match_options">
+    <string-array name="match_privacy">
         <item>Publico</item>
         <item>Privado</item>
+    </string-array>
+    <string-array name="match_options">
+        <item>Dobles</item>
+        <item>Individuales</item>
     </string-array>
 </resources>

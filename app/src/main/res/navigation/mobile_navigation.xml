@@ -51,8 +51,13 @@
         android:id="@+id/matchFragment"
         android:name="com.uva.padelconnect.view.MatchDetailsFragment"
         android:label="MatchDetailsFragment"
-        tools:layout="@layout/fragment_match_details" />
+        tools:layout="@layout/fragment_match_details"/>
 
+    <fragment
+        android:id="@+id/createMatchFragment"
+        android:name="com.uva.padelconnect.view.CreateMatchFragment"
+        android:label="CreateMatchFragment"
+        tools:layout="@layout/fragment_create_match"/>
 
     <!-- Definir la acción para navegar de loginFragment a homeFragment -->
     <action
@@ -88,5 +93,15 @@
     <action
         android:id="@+id/action_matchesListFragment_to_matchFragment"
         app:destination="@id/matchFragment"/>
+
+    <!-- Definir la accion para navegar de la creacion de Partidos a la lista-->
+    <action
+        android:id="@+id/action_createMatchFragment_to_matchListFragment"
+        app:destination="@id/matchesListFragment"/>
+
+    <!-- Definir la accion para navegar de la creacion de Torneos a la lista-->
+    <action
+        android:id="@+id/action_createMatchFragment_to_TournamentFragment"
+        app:destination="@id/tournamentFragment"/>
 
 </navigation>

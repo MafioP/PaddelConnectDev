@@ -9,7 +9,8 @@ import com.uva.padelconnect.modelView.repositories.UserRepository
 
 class UsersSessionViewModel: ViewModel() {
     private val userRepository:UserRepository= UserRepository()
-    private lateinit var userId:String
+    private val _userId = MutableLiveData<String>()
+    val userId:LiveData<String> = _userId
     private val _name = MutableLiveData<String>()
     val name: LiveData<String> = _name
     private val _lastName = MutableLiveData<String>()
@@ -30,7 +31,7 @@ class UsersSessionViewModel: ViewModel() {
      fun obtenerDatosUsuario(username:String ) {
         userRepository.obtenerUsuario(username){user ->
             if(user!=null){
-                userId=user.userId
+                _userId.value=user.userId
                 // Asignar los datos del usuario al ViewModel
                 _name.value = user.name
                 _lastName.value = user.lastName
@@ -45,6 +46,7 @@ class UsersSessionViewModel: ViewModel() {
     }
 
     fun actualizarDatos(name: String, lastName: String, username: String,password:String, city: String, country: String, imageViewUri: Uri){
+        val userid: String? =_userId.value
         _name.value = name
         _lastName.value = lastName
         _username.value = username
@@ -52,6 +54,14 @@ class UsersSessionViewModel: ViewModel() {
         _profileImage.value = imageViewUri
         _city.value=city
         _country.value=country
-        userRepository.editarUsuario(userId,name,lastName,username,password,city,country,imageViewUri)
+        if (userid != null) {
+            userRepository.editarUsuario(userid,name,lastName,username,password,city,country,imageViewUri){ success ->
+                if (success) {
+                    // La edición del usuario fue exitosa
+                } else {
+                    // Ocurrió un error al editar el usuario
+                }
+            }
+        }
     }
 }

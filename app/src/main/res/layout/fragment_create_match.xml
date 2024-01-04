@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textSize="@dimen/text_size_large"
-            android:entries="@array/match_options" />
+            android:entries="@array/match_privacy" />
 
         <!-- Selector para elegir partido o torneo -->
         <TextView
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_size_large"
-            android:entries="@array/type_options" />
+            android:entries="@array/match_options"/>
 
         <!-- Otros campos: nombre, fecha, lugar, enlace -->
         <TextView
@@ -108,7 +108,7 @@
             android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/textViewMatchName"
+            android:id="@+id/editTextMatchName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewName"
@@ -120,7 +120,7 @@
             android:id="@+id/textViewDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewMatchName"
+            android:layout_below="@id/editTextMatchName"
             android:layout_marginTop="10dp"
             android:text="Fecha:"
             android:textSize="20sp"/>

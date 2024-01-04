@@ -12,8 +12,6 @@ import com.google.firebase.database.DatabaseReference
 import com.uva.padelconnect.modelView.repositories.UserRepository
 
 class RegisterViewModel: ViewModel(){
-    private val firebaseAuth: FirebaseAuth = DatabaseConnection.getAuthInstance()
-    private val usersReference: DatabaseReference = DatabaseConnection.getUsersReference()
     private val registerResultLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private var userRepository:UserRepository = UserRepository()
 

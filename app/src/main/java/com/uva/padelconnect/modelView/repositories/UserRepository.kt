@@ -112,4 +112,29 @@ class UserRepository {
                 }
             }
     }
+    fun obtenerUsuarioById(userId: String, callback: (User?) -> Unit){
+        // Lógica para obtener los datos del usuario desde Firebase
+        val query = usersAccess.orderByChild("userId").equalTo(userId)
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                // Lógica para manejar los datos obtenidos del usuario
+                if (dataSnapshot.exists()) {
+                    for (userSnapshot in dataSnapshot.children) {
+                        // Construir un objeto User utilizando los datos del DataSnapshot
+                        val user = userSnapshot.getValue(User::class.java)
+                        callback(user)
+                        return
+                    }
+                }
+                // Si no se encuentra ningún usuario con ese email
+                callback(null) // Llamar al callback con null si no se encuentra el usuario
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                // Manejar errores de lectura de la base de datos si es necesario
+                callback(null) // Llamar al callback con null en caso de error
+            }
+        })
+    }
 }
