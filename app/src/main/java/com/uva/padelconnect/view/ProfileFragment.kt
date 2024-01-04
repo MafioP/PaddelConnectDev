@@ -35,7 +35,7 @@ class ProfileFragment: Fragment() {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view:View = binding.root
 
-        (activity as AppCompatActivity).setSupportActionBar(binding.header)
+        //(activity as AppCompatActivity).setSupportActionBar(binding.header)
 
         setHasOptionsMenu(true) // Habilitar la visualización del menú en este fragmento
 
@@ -67,7 +67,7 @@ class ProfileFragment: Fragment() {
                 .into(binding.imageViewUser)
         }
 
-        binding.footer.setOnNavigationItemSelectedListener { menuItem ->
+        /*binding.footer.bottomNavigationMenu.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_partidos -> {
                     //Navegar al Fragmento del partido
@@ -101,7 +101,7 @@ class ProfileFragment: Fragment() {
                 }
                 else -> false
             }
-        }
+        }*/
     }
     private fun replaceFragment(fragment: Fragment) {
         // Función para reemplazar el Fragment en tu contenedor principal

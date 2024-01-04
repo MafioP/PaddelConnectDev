@@ -7,21 +7,16 @@
     android:padding="0dp">
 
     <!-- Encabezado -->
-    <include layout="@layout/header_view"
-        android:id="@+id/header"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvUserGreeting"
         android:layout_width="379dp"
         android:layout_height="78dp"
-        android:layout_marginTop="16dp"
         app:cardCornerRadius="9dp"
         app:cardElevation="6dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header">
+        tools:layout_editor_absoluteY="72dp">
 
         <LinearLayout
             android:layout_width="368dp"
@@ -38,9 +33,9 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
                 android:layout_weight="1"
-                android:orientation="vertical"
-                android:layout_marginStart="20dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvGreeting"
@@ -163,20 +158,7 @@
 
     </androidx.cardview.widget.CardView>
 
-    <include layout="@layout/footer_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-
     <!-- Menú desplegable -->
-    <com.google.android.material.navigation.NavigationView
-        android:id="@+id/navigation_view"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        app:menu="@menu/main"
-        tools:ignore="MissingConstraints">
-    </com.google.android.material.navigation.NavigationView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,6 +40,17 @@ class MatchesViewModel: ViewModel() {
             _matchesLiveData.postValue(matches)
         }
     }
+    fun createMatch(
+        name: String,
+        date: Any?,
+        place: String,
+        matchType: String,
+        matchPriv: String,
+        matchDoubles: String
+    ) {
+        matchRepository.createMatch()
+    }
+
 
     fun registerMatch(selectedMatchPrivacy: String, name: String, fechaString: String, place: String, selectedMatchType: String,idUser1:String) {
         val public = selectedMatchPrivacy == "Publico"

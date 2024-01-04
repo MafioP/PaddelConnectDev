@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.uva.padelconnect.R
 import com.uva.padelconnect.modelView.viewmodel.HomeViewModel
 import com.uva.padelconnect.databinding.FragmentHomeBinding
@@ -24,9 +25,9 @@ class HomeFragment : Fragment() {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val homeViewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        inflater.inflate(R.layout.fragment_home,container,false)
         val root: View = binding.root
 
         val textView: TextView = binding.tvGreeting
@@ -38,7 +39,7 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+    /*
         binding.bottomNavigationMenu.setOnNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_partidos -> {
@@ -73,7 +74,7 @@ class HomeFragment : Fragment() {
                 }
                 else -> false
             }
-        }
+        }*/
     }
     private fun replaceFragment(fragment: Fragment) {
         // Función para reemplazar el Fragment en tu contenedor principal
