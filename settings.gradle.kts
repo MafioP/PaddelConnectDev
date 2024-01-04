@@ -14,4 +14,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "PadelConnect"
-include(":app")
+include(":app", ":navigation")
