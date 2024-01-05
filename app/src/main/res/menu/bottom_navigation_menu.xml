@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
         <item
-            android:id="@+id/action_partidos"
+            android:id="@+id/matchFragment"
             android:icon="@drawable/ic_partidos_inf"
             android:title="@string/menu_matches" />
 
         <item
-            android:id="@+id/action_tournament"
+            android:id="@+id/tournamentFragment"
             android:icon="@drawable/ic_torneos_inf"
             android:title="@string/menu_tournaments" />
 
         <item
-            android:id="@+id/action_inicio"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/ic_home_inf"
             android:title="@string/menu_home" />
 
         <item
-            android:id="@+id/action_ranking"
+            android:id="@+id/ranking"
             android:icon="@drawable/ic_clasificacion_inf"
             android:title="@string/menu_ranking" />
 
         <item
-            android:id="@+id/action_profile"
+            android:id="@+id/profileFragment"
             android:icon="@drawable/ic_perfil_inf"
             android:title="@string/menu_profile" />
 
