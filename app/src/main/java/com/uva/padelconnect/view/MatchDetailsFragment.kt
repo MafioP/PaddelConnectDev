@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.core.text.set
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -50,57 +51,61 @@ class MatchDetailsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val matchId = args.matchId
-        var match:Match
+        var match: Match? = null
         matchesViewModel.getMatchById(matchId).observe(viewLifecycleOwner) { retrievedMatch:Match ->
-            match=retrievedMatch
+            match = retrievedMatch
             setDatos(retrievedMatch)
         }
         binding.perfil2.setOnClickListener {
-            if (binding.perfil2.drawable.constantState != ContextCompat.getDrawable(
-                    this,
-                    R.drawable.ic_add
-                )?.constantState
+            if (binding.perfil2.drawable.constantState != context?.let { it1 ->
+                    ContextCompat.getDrawable(
+                        it1,
+                        R.drawable.ic_add
+                    )?.constantState
+                }
             ) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
-                    if (imageUrl!=null) {
-                        Glide.with(requireContext())
-                            .load(imageUrl)
-                            .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
-                            .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
-                            .into(binding.perfil2)
-                    }
+                    Glide.with(requireContext())
+                        .load(imageUrl)
+                        .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                        .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
+                        .into(binding.perfil2)
                 }
                 usersSession.userId.observe(viewLifecycleOwner) { userId: String ->
                     // Aquí puedes utilizar el valor del userId
-                    if (!userId.isNullOrEmpty()) {
+                    if (userId.isNotEmpty()) {
                         matchesViewModel.updateMatchUserId(matchId,userId, 2)
                     }
                 }
             }
         }
         binding.perfil3.setOnClickListener {
-            if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(this, R.drawable.ic_add)?.constantState) {
+            if (binding.perfil3.drawable.constantState != context?.let { it1 ->
+                    ContextCompat.getDrawable(
+                        it1, R.drawable.ic_add)?.constantState
+                }) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
-                    if (imageUrl!=null) {
-                        Glide.with(requireContext())
-                            .load(imageUrl)
-                            .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
-                            .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
-                            .into(binding.perfil3)
-                    }
+                    Glide.with(requireContext())
+                        .load(imageUrl)
+                        .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                        .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
+                        .into(binding.perfil3)
                 }
                 usersSession.userId.observe(viewLifecycleOwner) { userId: String ->
                     // Aquí puedes utilizar el valor del userId
-                    if (!userId.isNullOrEmpty()) {
+                    if (userId.isNotEmpty()) {
                         matchesViewModel.updateMatchUserId(matchId,userId, 3)
                     }
                 }
             }
         }
         binding.perfil4.setOnClickListener {
-            if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(this, R.drawable.ic_add)?.constantState) {
+            if (binding.perfil4.drawable.constantState != context?.let { it1 ->
+                    ContextCompat.getDrawable(
+                        it1, R.drawable.ic_add)?.constantState
+                }) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
@@ -130,10 +135,10 @@ class MatchDetailsFragment: Fragment() {
             val selectedDate = Calendar.getInstance()
             selectedDate.set(selectedYear, selectedMonth, selectedDay)
             // Suponiendo que match es tu objeto Match con la fecha límite
-            binding.editTextResultado.isEnabled = selectedDate.after(match.date)
+            binding.editTextResultado.isEnabled = selectedDate.after(match?.date ?: String)
         }, year, month, day)
         datePicker.show()
-        binding.editTextResultado.
+        binding.editTextResultado
     }
 
     override fun onDestroyView() {
@@ -245,13 +250,6 @@ class MatchDetailsFragment: Fragment() {
                     }
                 }
             }
-    }
-    private fun replaceFragment(fragment: Fragment) {
-        // Función para reemplazar el Fragment en tu contenedor principal
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 
 }

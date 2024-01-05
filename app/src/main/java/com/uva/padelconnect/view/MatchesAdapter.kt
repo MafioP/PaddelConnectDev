@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
+import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 
 class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 
@@ -39,6 +42,7 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
 
     // Asignar datos a las vistas en cada elemento de la lista
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
+        val matchesViewModel:MatchesViewModel = ViewModelProvider(MatchesFragment())[MatchesViewModel::class.java]
         val match = matches[position]
         holder.textViewDate.text = match.date.toString()
         holder.textViewLocation.text = match.place

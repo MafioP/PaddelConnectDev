@@ -38,6 +38,7 @@ android {
 }
 
 dependencies {
+    implementation("com.android.volley:volley:1.2.0")
     implementation ("com.google.android.libraries.places:places:2.4.0")
     implementation ("androidx.core:core-ktx:1.7.0")
     implementation("androidx.core:core-ktx:1.9.0")
