@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/itemFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/matchesListFragment"
@@ -49,6 +49,7 @@
     <!-- Definir la acción para navegar de loginFragment a homeFragment -->
     <action
         android:id="@+id/action_loginFragment_to_homeFragment"
+        android:name="com.uva.padelconnect.view.CreateMatchFragment"
         app:destination="@id/homeFragment" />
 
     <!-- Definir la acción para navegar de registerFragment a homeFragment -->
@@ -80,11 +81,6 @@
     <action
         android:id="@+id/action_matchesListFragment_to_matchFragment"
         app:destination="@id/matchFragment" />
-    <fragment
-        android:id="@+id/itemFragment"
-        android:name="com.uva.padelconnect.ItemFragment"
-        android:label="fragment_item_list"
-        tools:layout="@layout/fragment_item_list" />
 
     <!-- Definir la accion para navegar de la creacion de Partidos a la lista-->
     <action
