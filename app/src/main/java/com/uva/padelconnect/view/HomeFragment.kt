@@ -14,11 +14,9 @@ import com.uva.padelconnect.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
-    private val binding get() = _binding!!
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -27,14 +25,11 @@ class HomeFragment : Fragment() {
     ): View {
         val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        inflater.inflate(R.layout.fragment_home,container,false)
-        val root: View = binding.root
-
-        val textView: TextView = binding.tvGreeting
+        /*val textView: TextView = binding.tvGreeting
         homeViewModel.text.observe(viewLifecycleOwner) {
             textView.text = it
-        }
-        return root
+        */
+        return inflater.inflate(R.layout.fragment_home,container,false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -85,6 +80,5 @@ class HomeFragment : Fragment() {
     }
     override fun onDestroyView() {
         super.onDestroyView()
-        _binding = null
     }
 }

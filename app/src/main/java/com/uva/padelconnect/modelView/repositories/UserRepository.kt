@@ -14,7 +14,7 @@ import com.uva.padelconnect.model.firebase.DatabaseConnection.getUsersReference
 
 class UserRepository {
     private val firebaseAuth: FirebaseAuth = getAuthInstance()
-    private var usersAccess :DatabaseReference = getUsersReference()
+    private var usersAccess: DatabaseReference = getUsersReference()
     private lateinit var imageAccess:StorageReference
 
     fun obtenerUsuario(username: String, callback: (User?) -> Unit){
