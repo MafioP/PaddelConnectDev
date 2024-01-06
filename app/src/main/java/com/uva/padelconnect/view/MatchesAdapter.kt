@@ -51,6 +51,7 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
         var user3: Uri?=null
         var user4: Uri?=null
         matchesViewModel.getPerfilPhoto(match.idUser1,2)
+        /*
         matchesViewModel.fotoPerfilUri1LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
             user1=fotoPerfilUri
         }
@@ -98,11 +99,14 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
         holder.buttonArrow2.setOnClickListener {
             holder.itemView.findNavController().navigate(R.id.action_matchesListFragment_to_matchFragment(match.idMatch))
         }
+        */
+
     }
 
     // Devolver la cantidad de elementos en la lista
     override fun getItemCount(): Int {
-        return matches.size
+        //return matches.size
+        return 0
     }
 
     fun submitList(matches:List<Match>){

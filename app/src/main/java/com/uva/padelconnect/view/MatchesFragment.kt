@@ -20,8 +20,8 @@ import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
 class MatchesFragment :Fragment(){
-    private lateinit var matchesViewModel: MatchesViewModel
-    private lateinit var usersViewModel:UsersSessionViewModel
+    private val matchesViewModel: MatchesViewModel by viewModels()
+    private val usersViewModel:UsersSessionViewModel by viewModels()
     private var columnCount = 1
     private lateinit var recyclerView: RecyclerView
 
@@ -29,8 +29,6 @@ class MatchesFragment :Fragment(){
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        matchesViewModel = ViewModelProvider(this).get(MatchesViewModel::class.java)
-        usersViewModel = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
 
         val view = inflater.inflate(R.layout.fragment_matches_list, container, false)
         recyclerView = view.findViewById(R.id.recyclerViewMatches)

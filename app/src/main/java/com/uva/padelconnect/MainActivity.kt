@@ -24,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        // Inicialización de Firebase
+        FirebaseApp.initializeApp(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         replaceFragment(HomeFragment())
@@ -59,8 +60,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Inicialización de Firebase
-        FirebaseApp.initializeApp(this)
+
     }
 
     private fun replaceFragment(fragment: Fragment) {

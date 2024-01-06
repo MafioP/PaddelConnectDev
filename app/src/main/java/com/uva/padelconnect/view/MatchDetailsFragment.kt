@@ -28,7 +28,7 @@ import java.util.Calendar
 
 class MatchDetailsFragment: Fragment() {
 
-    private val args: MatchDetailsFragmentArgs by navArgs()
+    //private val args: MatchDetailsFragmentArgs by navArgs()
     private lateinit var matchesViewModel: MatchesViewModel
     private lateinit var usersSession: UsersSessionViewModel
 
@@ -50,12 +50,12 @@ class MatchDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val matchId = args.matchId
+        //val matchId = args.matchId
         var match: Match? = null
-        matchesViewModel.getMatchById(matchId).observe(viewLifecycleOwner) { retrievedMatch:Match ->
+        /*matchesViewModel.getMatchById(matchId).observe(viewLifecycleOwner) { retrievedMatch:Match ->
             match = retrievedMatch
             setDatos(retrievedMatch)
-        }
+        }*/
         binding.perfil2.setOnClickListener {
             if (binding.perfil2.drawable.constantState != context?.let { it1 ->
                     ContextCompat.getDrawable(
@@ -72,12 +72,13 @@ class MatchDetailsFragment: Fragment() {
                         .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
                         .into(binding.perfil2)
                 }
+                /*
                 usersSession.userId.observe(viewLifecycleOwner) { userId: String ->
                     // Aquí puedes utilizar el valor del userId
                     if (userId.isNotEmpty()) {
                         matchesViewModel.updateMatchUserId(matchId,userId, 2)
                     }
-                }
+                }*/
             }
         }
         binding.perfil3.setOnClickListener {
@@ -93,12 +94,13 @@ class MatchDetailsFragment: Fragment() {
                         .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
                         .into(binding.perfil3)
                 }
+                /*
                 usersSession.userId.observe(viewLifecycleOwner) { userId: String ->
                     // Aquí puedes utilizar el valor del userId
                     if (userId.isNotEmpty()) {
                         matchesViewModel.updateMatchUserId(matchId,userId, 3)
                     }
-                }
+                }*/
             }
         }
         binding.perfil4.setOnClickListener {
@@ -116,12 +118,13 @@ class MatchDetailsFragment: Fragment() {
                             .into(binding.perfil4)
                     }
                 }
+                /*
                 usersSession.userId.observe(viewLifecycleOwner) { userId: String ->
                     // Aquí puedes utilizar el valor del userId
                     if (!userId.isNullOrEmpty()) {
                         matchesViewModel.updateMatchUserId(matchId,userId, 4)
                     }
-                }
+                }*/
             }
         }
 
@@ -231,7 +234,7 @@ class MatchDetailsFragment: Fragment() {
                 .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
                 .error(R.drawable.ic_perfil_inf)
                 .into(binding.perfil4)
-
+        /*
         val placesClient = Places.createClient(requireContext())
         val fields = listOf(Place.Field.ID, Place.Field.LAT_LNG)
         val findPlaceRequest = FindPlaceRequest.newInstance(address, fields)
@@ -249,7 +252,7 @@ class MatchDetailsFragment: Fragment() {
                         }
                     }
                 }
-            }
+            }*/
     }
 
 }
