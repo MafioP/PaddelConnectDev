@@ -44,6 +44,12 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
+                R.id.ranking->{
+                    // Navegar al ranking
+                    replaceFragment(RankingFragment())
+                    true
+                }
+
                 R.id.tournamentFragment->{
                     //Navegar al Fragmento del Torneo
                     val fragment= TournamentFragment()

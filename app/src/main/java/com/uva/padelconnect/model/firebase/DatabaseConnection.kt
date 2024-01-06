@@ -39,4 +39,11 @@ object DatabaseConnection {
         getStorageReference()
         return firebaseStorage!!.reference.child("images/$userId/profile.jpg")
     }
+
+    fun getRankingReference(): DatabaseReference {
+        getDatabaseReference()
+        return firebaseDatabase!!.reference.child("ranking")
+    }
+
+
 }

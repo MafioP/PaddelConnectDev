@@ -44,60 +44,7 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
         val matchesViewModel:MatchesViewModel = ViewModelProvider(MatchesFragment())[MatchesViewModel::class.java]
         val match = matches[position]
-        holder.textViewDate.text = match.date.toString()
-        holder.textViewLocation.text = match.place
-        var user1: Uri?=null
-        var user2: Uri?=null
-        var user3: Uri?=null
-        var user4: Uri?=null
-        matchesViewModel.getPerfilPhoto(match.idUser1,2)
-        matchesViewModel.fotoPerfilUri1LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-            user1=fotoPerfilUri
-        }
 
-        if(match.idUser2.isNotEmpty()) {
-            matchesViewModel.getPerfilPhoto(match.idUser2,2)
-            matchesViewModel.fotoPerfilUri2LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-                user2=fotoPerfilUri
-            }
-        }
-        if(match.idUser3.isNotEmpty()) {
-            matchesViewModel.getPerfilPhoto(match.idUser3,3)
-            matchesViewModel.fotoPerfilUri3LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-                user3=fotoPerfilUri
-            }
-        }
-        if(match.idUser4.isNotEmpty()) {
-            matchesViewModel.getPerfilPhoto(match.idUser3,4)
-            matchesViewModel.fotoPerfilUri4LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-                user4=fotoPerfilUri
-            }
-        }
-
-        Glide.with(this)
-            .load(user1) // URL de la primera imagen de perfil
-            .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
-            .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
-            .into(perfil1) // ImageView donde se muestra la imagen
-        Glide.with(this)
-            .load(user3) // URL de la primera imagen de perfil
-            .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
-            .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
-            .into(perfil3) // ImageView donde se muestra la imagen
-        Glide.with(this)
-            .load(user2)
-            .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
-            .error(R.drawable.ic_perfil_inf)
-            .into(perfil2)
-        Glide.with(this)
-            .load(user4)
-            .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
-            .error(R.drawable.ic_perfil_inf)
-            .into(perfil4)
-
-        holder.buttonArrow2.setOnClickListener {
-            holder.itemView.findNavController().navigate(R.id.action_matchesListFragment_to_matchFragment(match.idMatch))
-        }
     }
 
     // Devolver la cantidad de elementos en la lista
