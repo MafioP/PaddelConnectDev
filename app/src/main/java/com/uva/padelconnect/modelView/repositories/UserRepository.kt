@@ -8,13 +8,16 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
+import com.uva.padelconnect.model.entities.Ranking
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getAuthInstance
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getImageStorageReference
+import com.uva.padelconnect.model.firebase.DatabaseConnection.getRankingReference
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getUsersReference
 
 class UserRepository {
     private val firebaseAuth: FirebaseAuth = getAuthInstance()
     private var usersAccess: DatabaseReference = getUsersReference()
+    private var rankingAccess : DatabaseReference = getRankingReference()
     private lateinit var imageAccess:StorageReference
 
     fun obtenerUsuario(username: String, callback: (User?) -> Unit){
@@ -81,8 +84,13 @@ class UserRepository {
                     val userId = currentUser?.uid
 
                     if (userId != null) {
+                        // Crear un registro de ranking para el nuevo usuario
+                        val nuevoRanking = Ranking(userId, 0, 0) // Inicialmente, 0 puntos y 0 puntos anteriores
+
                         editarUsuario(userId, name, lastName, username, password, city, country,perfilUri) { success ->
                             if (success) {
+                                rankingAccess.child(userId).setValue(nuevoRanking)
+
                                 val imageAccess = getImageStorageReference(userId)
                                 imageAccess.putFile(perfilUri).addOnCompleteListener { uploadTask ->
                                     if (uploadTask.isSuccessful) {
