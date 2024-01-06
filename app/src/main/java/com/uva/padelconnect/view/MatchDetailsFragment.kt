@@ -3,24 +3,22 @@ package com.uva.padelconnect.view
 import android.app.DatePickerDialog
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.firebase.auth.FirebaseAuth
 import com.uva.padelconnect.R
 import com.uva.padelconnect.databinding.FragmentMatchDetailsBinding
 import com.uva.padelconnect.model.entities.Match
-import com.uva.padelconnect.model.entities.User
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 import java.util.Calendar
@@ -50,14 +48,13 @@ class MatchDetailsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val matchId = args.matchId
-        var match:Match
-        matchesViewModel.getMatchById(matchId).observe(viewLifecycleOwner) { retrievedMatch:Match ->
-            match=retrievedMatch
-            setDatos(retrievedMatch)
-        }
+        val match: Match = matchesViewModel.getMatchById(matchId)!!
+        // Usa 'match' como lo necesites en tu fragmento
+        setDatos(match)
+
         binding.perfil2.setOnClickListener {
             if (binding.perfil2.drawable.constantState != ContextCompat.getDrawable(
-                    this,
+                    requireContext(),
                     R.drawable.ic_add
                 )?.constantState
             ) {
@@ -80,7 +77,7 @@ class MatchDetailsFragment: Fragment() {
             }
         }
         binding.perfil3.setOnClickListener {
-            if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(this, R.drawable.ic_add)?.constantState) {
+            if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(requireContext(),, R.drawable.ic_add)?.constantState) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
@@ -100,7 +97,7 @@ class MatchDetailsFragment: Fragment() {
             }
         }
         binding.perfil4.setOnClickListener {
-            if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(this, R.drawable.ic_add)?.constantState) {
+            if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(requireContext(),, R.drawable.ic_add)?.constantState) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
@@ -133,7 +130,22 @@ class MatchDetailsFragment: Fragment() {
             binding.editTextResultado.isEnabled = selectedDate.after(match.date)
         }, year, month, day)
         datePicker.show()
-        binding.editTextResultado.
+        binding.editTextResultado.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                // Antes de que el texto cambie
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Cuando el texto está cambiando
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                // Después de que el texto cambia, aquí puedes obtener el nuevo texto
+                val result = s.toString()
+                matchesViewModel.updateResult(matchId,result)
+                //TODO:ACTUALIZAR PUNTUACION DE LOS USUARIOS PARA EL RANKING
+            }
+        })
     }
 
     override fun onDestroyView() {
@@ -245,13 +257,6 @@ class MatchDetailsFragment: Fragment() {
                     }
                 }
             }
-    }
-    private fun replaceFragment(fragment: Fragment) {
-        // Función para reemplazar el Fragment en tu contenedor principal
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
     }
 
 }

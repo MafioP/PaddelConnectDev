@@ -5,17 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
 import com.uva.padelconnect.R
-import com.uva.padelconnect.model.entities.Match
-import com.uva.padelconnect.modelView.repositories.MatchRepository
-import com.uva.padelconnect.modelView.viewmodel.LoginViewModel
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
@@ -39,7 +33,7 @@ class MatchesFragment :Fragment(){
             else -> GridLayoutManager(context, columnCount)
         }
         // Inicializar el adaptador (puedes pasar datos vacíos inicialmente)
-        val adapter = MatchesAdapter()
+        val adapter = MatchesAdapter(matchesViewModel)
         // Establecer el adaptador en el RecyclerView
         recyclerView.adapter = adapter
 

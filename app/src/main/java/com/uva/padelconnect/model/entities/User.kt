@@ -11,6 +11,8 @@ data class User(
     val city: String = "",
     val country: String = "",
     val password:String = "",
-    val imageView: Uri
+    val imageView: Uri,
+    var likedMatches:List<Match>,
+    val puntos:Int = 0
 ){
 }
