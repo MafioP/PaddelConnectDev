@@ -12,7 +12,7 @@ data class User(
     val country: String = "",
     val password:String = "",
     val imageView: Uri,
-    var likedMatches:List<Match>,
+    val likedMatches: MutableList<String> = mutableListOf(),
     val puntos:Int = 0
 ){
 }

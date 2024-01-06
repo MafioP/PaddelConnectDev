@@ -146,6 +146,26 @@ class MatchDetailsFragment: Fragment() {
                 //TODO:ACTUALIZAR PUNTUACION DE LOS USUARIOS PARA EL RANKING
             }
         })
+
+        binding.likeButton.setOnClickListener {
+            val matchLiked:Boolean = usersSession.likedMatches.value?.contains(matchId) ?: false
+
+            if(!matchLiked) {
+                usersSession.likeMatch(matchId)
+                Glide.with(this)
+                    .load(R.drawable.ic_liked) // URL de la primera imagen de perfil
+                    .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                    .error(R.drawable.ic_like) // Imagen de error si la carga falla
+                    .into(binding.likeButton) // ImageView donde se muestra la imagen
+            }else{
+                usersSession.unlikeMatch(matchId)
+                Glide.with(this)
+                    .load(R.drawable.ic_like) // URL de la primera imagen de perfil
+                    .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                    .error(R.drawable.ic_liked) // Imagen de error si la carga falla
+                    .into(binding.likeButton) // ImageView donde se muestra la imagen
+            }
+        }
     }
 
     override fun onDestroyView() {

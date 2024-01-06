@@ -18,6 +18,11 @@ class MatchesViewModel: ViewModel() {
     private val createResultLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private val _matchesLiveData = MutableLiveData<List<Match>>()
     val matchesLiveData: LiveData<List<Match>> get() = _matchesLiveData
+    private val _likedMatchesLiveData = MutableLiveData<List<Match>>()
+    val likedMatchesLiveData: LiveData<List<Match>> get() = _likedMatchesLiveData
+    private val _playedMatchesLiveData = MutableLiveData<List<Match>>()
+    val playedMatchesLiveData: LiveData<List<Match>> get() = _playedMatchesLiveData
+
 
     private val _fotoPerfilUri1LiveData = MutableLiveData<Uri>()
     private val _fotoPerfilUri2LiveData = MutableLiveData<Uri>()
@@ -84,5 +89,24 @@ class MatchesViewModel: ViewModel() {
 
     fun updateResult(matchId:String,result:String){
         matchRepository.updateResult(matchId,result)
+    }
+
+    fun cargarLikedMatchesList(likedMatchesIdsList: List<String>) {
+        val likedMatchesList = mutableListOf<Match>()
+        for (matchId in likedMatchesIdsList) {
+            matchRepository.getMatchById(matchId) { match ->
+                match?.let { likedMatchesList.add(it) }
+                // Verificar si se han obtenido todos los matches y actualizar LiveData si es necesario
+                if (likedMatchesList.size == likedMatchesIdsList.size) {
+                    _likedMatchesLiveData.value = likedMatchesList
+                }
+            }
+        }
+    }
+
+    fun cargarPlayedMatches(userId: String){
+        matchRepository.getMatchesPlayed(userId){matchesPlayed->
+            _playedMatchesLiveData.value=matchesPlayed
+        }
     }
 }

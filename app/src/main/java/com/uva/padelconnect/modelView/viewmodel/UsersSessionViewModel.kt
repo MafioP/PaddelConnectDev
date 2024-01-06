@@ -5,10 +5,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uva.padelconnect.model.entities.User
+import com.uva.padelconnect.modelView.repositories.MatchRepository
 import com.uva.padelconnect.modelView.repositories.UserRepository
 
 class UsersSessionViewModel: ViewModel() {
     private val userRepository:UserRepository= UserRepository()
+    private var matchRepository: MatchRepository = MatchRepository()
     private val _userId = MutableLiveData<String>()
     val userId:LiveData<String> = _userId
     private val _name = MutableLiveData<String>()
@@ -27,8 +29,10 @@ class UsersSessionViewModel: ViewModel() {
     val city: LiveData<String> = _city
     private val _country = MutableLiveData<String>()
     val country: LiveData<String> = _country
+    private val _likedMatches = MutableLiveData<List<String>>()
+    val likedMatches: LiveData<List<String>> = _likedMatches
 
-     fun obtenerDatosUsuario(username:String ) {
+    fun obtenerDatosUsuario(username:String ) {
         userRepository.obtenerUsuario(username){user ->
             if(user!=null){
                 _userId.value=user.userId
@@ -41,6 +45,7 @@ class UsersSessionViewModel: ViewModel() {
                 _profileImage.value = user.imageView
                 _city.value=user.city
                 _country.value=user.country
+                _likedMatches.value=user.likedMatches
             }
         }
     }
@@ -63,5 +68,21 @@ class UsersSessionViewModel: ViewModel() {
                 }
             }
         }
+    }
+
+    fun likeMatch(matchId: String) {
+        val currentLikedMatches = _likedMatches.value?.toMutableList() ?: mutableListOf()
+        if (!currentLikedMatches.contains(matchId)) {
+            currentLikedMatches.add(matchId)
+            _likedMatches.value = currentLikedMatches
+        }
+    }
+
+    fun unlikeMatch(matchId: String) {
+        val currentLikedMatches = _likedMatches.value.orEmpty().toMutableList() // Obtener la lista actual de IDs
+        // Eliminar el matchId de la lista
+        currentLikedMatches.remove(matchId)
+        _likedMatches.value = currentLikedMatches
+        matchRepository.unlikeMatch(matchId)
     }
 }
