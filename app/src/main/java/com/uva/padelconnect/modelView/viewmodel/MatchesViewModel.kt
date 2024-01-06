@@ -18,6 +18,11 @@ class MatchesViewModel: ViewModel() {
     private val createResultLiveData: MutableLiveData<Boolean> = MutableLiveData()
     private val _matchesLiveData = MutableLiveData<List<Match>>()
     val matchesLiveData: LiveData<List<Match>> get() = _matchesLiveData
+    private val _likedMatchesLiveData = MutableLiveData<List<Match>>()
+    val likedMatchesLiveData: LiveData<List<Match>> get() = _likedMatchesLiveData
+    private val _playedMatchesLiveData = MutableLiveData<List<Match>>()
+    val playedMatchesLiveData: LiveData<List<Match>> get() = _playedMatchesLiveData
+
 
     private val _fotoPerfilUri1LiveData = MutableLiveData<Uri>()
     private val _fotoPerfilUri2LiveData = MutableLiveData<Uri>()
@@ -40,16 +45,16 @@ class MatchesViewModel: ViewModel() {
             _matchesLiveData.postValue(matches)
         }
     }
+
     fun registerMatch(selectedMatchPrivacy: String, name: String, fechaString: String, place: String, selectedMatchType: String,idUser1:String) {
         val public = selectedMatchPrivacy == "Publico"
         val doubles = selectedMatchType == "Dobles"
-        var date:Date= Date()
-        var city = ""
+        var date:Date?=null
+        var city =""
         val formatoFecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         try {
-            date = formatoFecha.parse(fechaString)!!
+            date = formatoFecha.parse(fechaString)
         } catch (e: ParseException) {
-            throw e
         }
         val addressParts = place.split(",")
         if (addressParts.size >= 3) {
@@ -84,5 +89,24 @@ class MatchesViewModel: ViewModel() {
 
     fun updateResult(matchId:String,result:String){
         matchRepository.updateResult(matchId,result)
+    }
+
+    fun cargarLikedMatchesList(likedMatchesIdsList: List<String>) {
+        val likedMatchesList = mutableListOf<Match>()
+        for (matchId in likedMatchesIdsList) {
+            matchRepository.getMatchById(matchId) { match ->
+                match?.let { likedMatchesList.add(it) }
+                // Verificar si se han obtenido todos los matches y actualizar LiveData si es necesario
+                if (likedMatchesList.size == likedMatchesIdsList.size) {
+                    _likedMatchesLiveData.value = likedMatchesList
+                }
+            }
+        }
+    }
+
+    fun cargarPlayedMatches(userId: String){
+        matchRepository.getMatchesPlayed(userId){matchesPlayed->
+            _playedMatchesLiveData.value=matchesPlayed
+        }
     }
 }

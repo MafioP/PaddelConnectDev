@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -16,7 +14,7 @@ import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 
-class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
+class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 
     private lateinit var matches: List<Match>
 
@@ -42,9 +40,53 @@ class MatchesAdapter() : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() 
 
     // Asignar datos a las vistas en cada elemento de la lista
     override fun onBindViewHolder(holder: MatchViewHolder, position: Int) {
-        val matchesViewModel:MatchesViewModel = ViewModelProvider(MatchesFragment())[MatchesViewModel::class.java]
         val match = matches[position]
+        holder.textViewDate.text = match.date.toString()
+        holder.textViewLocation.text = match.place
+        matchesViewModel.getPerfilPhoto(match.idUser1,2)
+        matchesViewModel.fotoPerfilUri1LiveData.observeForever { fotoPerfilUri ->
+            Glide.with(holder.itemView.context)
+                .load(fotoPerfilUri) // URL de la primera imagen de perfil
+                .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
+                .into(holder.perfil1) // ImageView donde se muestra la imagen
+        }
 
+        if(match.idUser2.isNotEmpty()) {
+            matchesViewModel.getPerfilPhoto(match.idUser2,2)
+            matchesViewModel.fotoPerfilUri2LiveData.observeForever  { fotoPerfilUri ->
+                Glide.with(holder.itemView.context)
+                    .load(fotoPerfilUri)
+                    .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
+                    .error(R.drawable.ic_perfil_inf)
+                    .into(holder.perfil2)
+            }
+        }
+        if(match.idUser3.isNotEmpty()) {
+            matchesViewModel.getPerfilPhoto(match.idUser3,3)
+            matchesViewModel.fotoPerfilUri3LiveData.observeForever  { fotoPerfilUri ->
+                Glide.with(holder.itemView.context)
+                    .load(fotoPerfilUri) // URL de la primera imagen de perfil
+                    .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+                    .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
+                    .into(holder.perfil3) // ImageView donde se muestra la imagen
+            }
+        }
+        if(match.idUser4.isNotEmpty()) {
+            matchesViewModel.getPerfilPhoto(match.idUser3,4)
+            matchesViewModel.fotoPerfilUri4LiveData.observeForever  { fotoPerfilUri ->
+                Glide.with(holder.itemView.context)
+                    .load(fotoPerfilUri)
+                    .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
+                    .error(R.drawable.ic_perfil_inf)
+                    .into(holder.perfil4)
+            }
+        }
+
+        holder.buttonArrow2.setOnClickListener {
+            val action = MatchesFragmentDirections.actionMatchesListFragmentToMatchFragment(matchId = match.idMatch)
+            holder.itemView.findNavController().navigate(action)
+        }
     }
 
     // Devolver la cantidad de elementos en la lista

@@ -11,6 +11,8 @@ data class User(
     val city: String = "",
     val country: String = "",
     val password:String = "",
-    val imageView: Uri
+    val imageView: Uri,
+    val likedMatches: MutableList<String> = mutableListOf(),
+    val puntos:Int = 0
 ){
 }

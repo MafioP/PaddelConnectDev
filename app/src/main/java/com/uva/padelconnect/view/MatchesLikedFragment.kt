@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,9 +13,9 @@ import com.uva.padelconnect.R
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
-class MatchesFragment :Fragment(){
+class MatchesLikedFragment: Fragment() {
     private val matchesViewModel: MatchesViewModel by viewModels()
-    private val usersViewModel:UsersSessionViewModel by viewModels()
+    private val usersViewModel: UsersSessionViewModel by viewModels()
     private var columnCount = 1
     private lateinit var recyclerView: RecyclerView
 
@@ -36,19 +35,15 @@ class MatchesFragment :Fragment(){
         // Establecer el adaptador en el RecyclerView
         recyclerView.adapter = adapter
 
-        if(usersViewModel.city!=null){
-            usersViewModel.city.observe(viewLifecycleOwner) { city ->
-                matchesViewModel.getMatchesByCity(city)
-            }
-        }else{
-            matchesViewModel.getMatches()
-        }
+        // Supongamos que ya tienes los IDs de los partidos que le gustan al jugador
+       usersViewModel.likedMatches.observe(viewLifecycleOwner){likedIds->
+           matchesViewModel.cargarLikedMatchesList(likedIds)
+       }
 
-        matchesViewModel.matchesLiveData.observe(viewLifecycleOwner) { matches ->
-            adapter.submitList(matches)
-        }
+       matchesViewModel.likedMatchesLiveData.observe(viewLifecycleOwner){likedMatches->
+           adapter.submitList(likedMatches)
+       }
 
         return view
     }
-
 }

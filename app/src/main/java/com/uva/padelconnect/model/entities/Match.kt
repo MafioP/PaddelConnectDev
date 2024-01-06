@@ -6,7 +6,7 @@ data class Match(
     var idMatch:String="",
     val public:Boolean=false,
     val name:String="",
-    val date:Date,
+    val date: Date?,
     val place:String="",
     val idUser1:String="",
     val idUser2:String="",

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
@@ -20,7 +21,7 @@ import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 @Suppress("DEPRECATION")
 class ProfileFragment: Fragment() {
 
-    private lateinit var viewModel: UsersSessionViewModel
+    private val viewModel: UsersSessionViewModel by viewModels()
     private var _binding: FragmentProfileBinding?=null
     private val binding get() = _binding!!
 
@@ -29,9 +30,7 @@ class ProfileFragment: Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        viewModel = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
-
+    ): View {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
         val view:View = binding.root
 
