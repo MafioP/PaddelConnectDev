@@ -77,7 +77,7 @@ class MatchDetailsFragment: Fragment() {
             }
         }
         binding.perfil3.setOnClickListener {
-            if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(requireContext(),, R.drawable.ic_add)?.constantState) {
+            if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)?.constantState) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
@@ -97,7 +97,7 @@ class MatchDetailsFragment: Fragment() {
             }
         }
         binding.perfil4.setOnClickListener {
-            if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(requireContext(),, R.drawable.ic_add)?.constantState) {
+            if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)?.constantState) {
             } else {
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {

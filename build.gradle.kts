@@ -5,7 +5,9 @@ buildscript {
 
     dependencies {
         // Aquí se agrega la dependencia del complemento de Google Services
-        classpath("com.google.gms:google-services:4.3.8")
+        classpath("com.google.gms:google-services:4.3.8");
+        classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.6")
+
         //classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
 
     }

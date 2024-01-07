@@ -38,7 +38,11 @@
         android:id="@+id/matchFragment"
         android:name="com.uva.padelconnect.view.MatchDetailsFragment"
         android:label="MatchDetailsFragment"
-        tools:layout="@layout/fragment_match_details"/>
+        tools:layout="@layout/fragment_match_details">
+        <argument
+            android:name="matchId"
+            app:argType="integer" />
+    </fragment>
 
     <fragment
         android:id="@+id/createMatchFragment"

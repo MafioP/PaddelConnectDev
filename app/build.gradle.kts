@@ -39,7 +39,7 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.android.gms:play-services-places:18.0.0") // Dependencia para Places SDK
+    implementation ("com.google.android.gms:play-services-places:17.0.0") // Dependencia para Places SDK
     implementation ("com.google.android.gms:play-services-maps:18.2.0") // Dependencia para Google Maps
     implementation ("androidx.core:core-ktx:1.7.0")
     implementation("androidx.core:core-ktx:1.9.0")
