@@ -65,42 +65,6 @@ class ProfileFragment: Fragment() {
                 .load(uri)
                 .into(binding.imageViewUser)
         }
-
-        /*binding.footer.bottomNavigationMenu.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.action_partidos -> {
-                    //Navegar al Fragmento del partido
-                    val fragment = MatchesFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-                R.id.action_profile -> {
-                    //Mantenerse en el Fragmento del perfil
-                    true
-                }
-
-                R.id.action_ranking->{
-                    //Navegar al Fragmento del Ranking
-                    val fragment= RankingFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-
-                R.id.action_tournament->{
-                    //Navegar al Fragmento del Torneo
-                    val fragment= TournamentFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-                R.id.action_inicio->{
-                    //Navegar al Fragmento de Inicio
-                    val fragment= HomeFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-                else -> false
-            }
-        }*/
     }
     private fun replaceFragment(fragment: Fragment) {
         // Función para reemplazar el Fragment en tu contenedor principal

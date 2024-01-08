@@ -1,6 +1,7 @@
 package com.uva.padelconnect
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -9,12 +10,16 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.auth.auth
 import com.uva.padelconnect.databinding.ActivityMainBinding
+import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.uva.padelconnect.view.HomeFragment
 import com.uva.padelconnect.view.MatchesFragment
 import com.uva.padelconnect.view.ProfileFragment
 import com.uva.padelconnect.view.RankingFragment
+import com.uva.padelconnect.view.RegisterFragment
 import com.uva.padelconnect.view.TournamentFragment
 
 
@@ -28,7 +33,19 @@ class MainActivity : AppCompatActivity() {
         FirebaseApp.initializeApp(this)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        replaceFragment(HomeFragment())
+        val auth = Firebase.auth
+        //Checkear si el usuario esta registrado/logeado
+        if (auth.currentUser != null) {
+            Log.d("LOG", "HELLO")
+            auth.currentUser!!.email?.let { Log.d("LOG", it) }
+            replaceFragment(HomeFragment())
+            //usuario existe
+        } else {
+            Log.println(Log.INFO, "LOG", "User not loged")
+            replaceFragment(RegisterFragment())
+        }
+
+
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
