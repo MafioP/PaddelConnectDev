@@ -96,4 +96,9 @@
         android:id="@+id/action_createMatchFragment_to_TournamentFragment"
         app:destination="@id/tournamentFragment"/>
 
+    <!-- Definir la accion para navegar de los detalles de partido a la lista-->
+    <action
+        android:id="@+id/action_matchDetailsFragment_to_matchListFragment"
+        app:destination="@id/matchesListFragment"/>
+
 </navigation>

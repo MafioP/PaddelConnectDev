@@ -43,10 +43,11 @@ class CreateMatchFragment: Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-
+            val code=viewModelMatches.generateUniqueCode()
+            binding.textLink.text=code
             // Agregar acciones para el botón de copiar enlace
             binding.buttonCopyLink.setOnClickListener {
-                val link = binding.editTextLink.toString().trim()
+                val link = binding.textLink.text.toString().trim()
                 if (link.isNotEmpty()) {
                     val clipboard =
                         requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
@@ -78,7 +79,7 @@ class CreateMatchFragment: Fragment() {
                 if (type == "Partido") {
                     usersSession.userId.observe(viewLifecycleOwner){userId->
                         // Llamar al ViewModel para realizar el registro
-                        viewModelMatches.registerMatch(selectedMatchPrivacy, name, fechaString, place, selectedMatchType,userId)
+                        viewModelMatches.registerMatch(selectedMatchPrivacy, name, fechaString, place, selectedMatchType,userId,code)
                     }
                     viewModelMatches.getCreateResult().observe(viewLifecycleOwner, Observer { createResult: Boolean ->
                             if (createResult) {

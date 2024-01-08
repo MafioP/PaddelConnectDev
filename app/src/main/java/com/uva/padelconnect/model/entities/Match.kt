@@ -13,6 +13,7 @@ data class Match(
     val idUser3:String="",
     val idUser4:String="",
     val doubles:Boolean=true,
-    val resultado:String=""
+    val resultado:String="",
+    val codigoUnico:String=""
 ) {
 }

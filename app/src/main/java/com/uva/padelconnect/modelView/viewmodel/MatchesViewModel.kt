@@ -46,7 +46,7 @@ class MatchesViewModel: ViewModel() {
         }
     }
 
-    fun registerMatch(selectedMatchPrivacy: String, name: String, fechaString: String, place: String, selectedMatchType: String,idUser1:String) {
+    fun registerMatch(selectedMatchPrivacy: String, name: String, fechaString: String, place: String, selectedMatchType: String,idUser1:String,code:String) {
         val public = selectedMatchPrivacy == "Publico"
         val doubles = selectedMatchType == "Dobles"
         var date:Date?=null
@@ -61,7 +61,7 @@ class MatchesViewModel: ViewModel() {
             city = addressParts[2].trim() // Obtén la ciudad (puede necesitar más validación o manipulación según el formato esperado)
         } else {
         }
-        val match=Match("",public,name,date,place,idUser1,"","","",doubles,"")
+        val match=Match("",public,name,date,place,idUser1,"","","",doubles,"",code)
         matchRepository.createMatch(match){ success ->
             createResultLiveData.value = success
         }
@@ -108,5 +108,12 @@ class MatchesViewModel: ViewModel() {
         matchRepository.getMatchesPlayed(userId){matchesPlayed->
             _playedMatchesLiveData.value=matchesPlayed
         }
+    }
+
+     fun generateUniqueCode(length: Int = 6): String {
+        val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9') // Caracteres permitidos
+        return (1..length)
+            .map { allowedChars.random() } // Genera un código aleatorio con la longitud especificada
+            .joinToString("") // Convierte la lista de caracteres en un String
     }
 }

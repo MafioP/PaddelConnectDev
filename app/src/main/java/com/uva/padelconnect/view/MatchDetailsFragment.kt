@@ -1,6 +1,10 @@
 package com.uva.padelconnect.view
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -8,10 +12,13 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -52,6 +59,27 @@ class MatchDetailsFragment: Fragment() {
         // Usa 'match' como lo necesites en tu fragmento
         setDatos(match)
 
+        binding.share.setOnClickListener {
+            val link = match.codigoUnico
+            if (link.isNotEmpty()) {
+                val clipboard =
+                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+                val clip = ClipData.newPlainText("Link", link)
+                clipboard.setPrimaryClip(clip)
+                Toast.makeText(
+                    requireContext(),
+                    "Enlace copiado al portapapeles",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Toast.makeText(
+                    requireContext(),
+                    "Introduce un enlace primero",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+
         binding.perfil2.setOnClickListener {
             if (binding.perfil2.drawable.constantState != ContextCompat.getDrawable(
                     requireContext(),
@@ -59,6 +87,13 @@ class MatchDetailsFragment: Fragment() {
                 )?.constantState
             ) {
             } else {
+                if(!match.public){
+                    mostrarDialogoCodigoAcceso { codigoIngresado ->
+                        if(codigoIngresado != match.codigoUnico){
+                            findNavController().navigate(R.id.action_matchDetailsFragment_to_matchListFragment)
+                        }
+                    }
+                }
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
                         Glide.with(requireContext())
@@ -79,6 +114,13 @@ class MatchDetailsFragment: Fragment() {
         binding.perfil3.setOnClickListener {
             if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)?.constantState) {
             } else {
+                if(!match.public){
+                    mostrarDialogoCodigoAcceso { codigoIngresado ->
+                        if(codigoIngresado != match.codigoUnico){
+                            findNavController().navigate(R.id.action_matchDetailsFragment_to_matchListFragment)
+                        }
+                    }
+                }
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
                         Glide.with(requireContext())
@@ -99,6 +141,13 @@ class MatchDetailsFragment: Fragment() {
         binding.perfil4.setOnClickListener {
             if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)?.constantState) {
             } else {
+                if(!match.public){
+                    mostrarDialogoCodigoAcceso { codigoIngresado ->
+                       if(codigoIngresado != match.codigoUnico){
+                           findNavController().navigate(R.id.action_matchDetailsFragment_to_matchListFragment)
+                       }
+                    }
+                }
                 usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
                     if (imageUrl!=null) {
                         Glide.with(requireContext())
@@ -167,6 +216,25 @@ class MatchDetailsFragment: Fragment() {
             }
         }
     }
+
+    private fun mostrarDialogoCodigoAcceso(onCodigoIngresado: (String) -> Unit) {
+        val builder = AlertDialog.Builder(requireContext())
+        val inflater = layoutInflater
+        val dialogView = inflater.inflate(R.layout.dialog_codigo_acceso, null)
+        builder.setView(dialogView)
+            .setPositiveButton("Unirse") { dialog, _ ->
+                // Verificar el código ingresado y unirse al partido
+                val editTextCodigo = dialogView.findViewById<EditText>(R.id.editTextCodigo)
+                val codigoIngresado = editTextCodigo.text.toString()
+                onCodigoIngresado(codigoIngresado)
+                dialog.dismiss()
+            }
+            .setNegativeButton("Cancelar") { dialog, _ ->
+                dialog.dismiss()
+            }
+        builder.create().show()
+    }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
