@@ -43,8 +43,16 @@ class CreateMatchFragment: Fragment() {
 
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
-            val code=viewModelMatches.generateUniqueCode()
-            binding.textLink.text=code
+            val selectedMatchPrivacy = binding.spinnerMatch.selectedItem.toString()
+            val code:String
+            if(selectedMatchPrivacy!="Publico"){
+                code=viewModelMatches.generateUniqueCode()
+                binding.textLink.text=code
+                binding.buttonCopyLink.isEnabled = true
+            }else{
+                binding.buttonCopyLink.isEnabled = false
+            }
+
             // Agregar acciones para el botón de copiar enlace
             binding.buttonCopyLink.setOnClickListener {
                 val link = binding.textLink.text.toString().trim()
@@ -69,7 +77,7 @@ class CreateMatchFragment: Fragment() {
 
             // Agregar acciones para el botón de crear partido/torneo
             binding.buttonCreateMatch.setOnClickListener {
-                val selectedMatchPrivacy = binding.spinnerMatch.selectedItem.toString()
+
                 val selectedMatchType = binding.spinnerDoubles.selectedItem.toString()
                 val name = binding.editTextMatchName.text.toString()
                 val fechaString = binding.editTextDate.text.toString()
@@ -79,7 +87,7 @@ class CreateMatchFragment: Fragment() {
                 if (type == "Partido") {
                     usersSession.userId.observe(viewLifecycleOwner){userId->
                         // Llamar al ViewModel para realizar el registro
-                        viewModelMatches.registerMatch(selectedMatchPrivacy, name, fechaString, place, selectedMatchType,userId,code)
+                        viewModelMatches.registerMatch(selectedMatchPrivacy, name, fechaString, place, selectedMatchType,userId,code="")
                     }
                     viewModelMatches.getCreateResult().observe(viewLifecycleOwner, Observer { createResult: Boolean ->
                             if (createResult) {
