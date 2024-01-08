@@ -41,7 +41,7 @@
         tools:layout="@layout/fragment_match_details">
         <argument
             android:name="matchId"
-            app:argType="integer" />
+            app:argType="string" />
     </fragment>
 
     <fragment
