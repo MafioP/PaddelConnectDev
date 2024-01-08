@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -84,8 +85,9 @@ class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerV
         }
 
         holder.buttonArrow2.setOnClickListener {
-            val action = MatchesFragmentDirections.actionMatchesListFragmentToMatchFragment(matchId = match.idMatch)
-            holder.itemView.findNavController().navigate(action)
+            val bundle = bundleOf()
+            bundle.putString("matchId", match.idMatch)
+            holder.itemView.findNavController().navigate(R.id.matchFragment, bundle)
         }
     }
 

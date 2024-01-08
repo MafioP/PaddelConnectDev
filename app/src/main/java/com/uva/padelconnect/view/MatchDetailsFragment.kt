@@ -32,13 +32,18 @@ import java.util.Calendar
 
 class MatchDetailsFragment: Fragment() {
 
-    private val args: MatchDetailsFragmentArgs by navArgs()
     private lateinit var matchesViewModel: MatchesViewModel
     private lateinit var usersSession: UsersSessionViewModel
 
     private var _binding: FragmentMatchDetailsBinding? = null
     private val binding get() = _binding!!
+    private lateinit var matchId:String
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        matchId = requireArguments().getString("matchId").toString()
+        println("matchID: $matchId")
+    }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,7 +59,6 @@ class MatchDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val matchId = args.matchId
         val match: Match = matchesViewModel.getMatchById(matchId)!!
         // Usa 'match' como lo necesites en tu fragmento
         setDatos(match)
@@ -327,6 +331,7 @@ class MatchDetailsFragment: Fragment() {
                 .error(R.drawable.ic_perfil_inf)
                 .into(binding.perfil4)
 
+       /*
         val placesClient = Places.createClient(requireContext())
         val fields = listOf(Place.Field.ID, Place.Field.LAT_LNG)
         val findPlaceRequest = FindPlaceRequest.newInstance(address, fields)
@@ -344,7 +349,7 @@ class MatchDetailsFragment: Fragment() {
                         }
                     }
                 }
-            }
+            }*/
     }
 
 }
