@@ -91,6 +91,9 @@ class MatchDetailsFragment: Fragment() {
                 )?.constantState
             ) {
             } else {
+                if(usersSession.userId.value?.isEmpty() == true){
+
+                }
                 if(!match.public){
                     mostrarDialogoCodigoAcceso { codigoIngresado ->
                         if(codigoIngresado != match.codigoUnico){
@@ -98,7 +101,7 @@ class MatchDetailsFragment: Fragment() {
                         }
                     }
                 }
-                usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
+                usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri? ->
                     if (imageUrl!=null) {
                         Glide.with(requireContext())
                             .load(imageUrl)
@@ -118,6 +121,7 @@ class MatchDetailsFragment: Fragment() {
         binding.perfil3.setOnClickListener {
             if (binding.perfil3.drawable.constantState != ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)?.constantState) {
             } else {
+                if(usersSession.userId.value?.isEmpty() == true) {}
                 if(!match.public){
                     mostrarDialogoCodigoAcceso { codigoIngresado ->
                         if(codigoIngresado != match.codigoUnico){
@@ -125,7 +129,7 @@ class MatchDetailsFragment: Fragment() {
                         }
                     }
                 }
-                usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
+                usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri? ->
                     if (imageUrl!=null) {
                         Glide.with(requireContext())
                             .load(imageUrl)
@@ -145,6 +149,7 @@ class MatchDetailsFragment: Fragment() {
         binding.perfil4.setOnClickListener {
             if (binding.perfil4.drawable.constantState != ContextCompat.getDrawable(requireContext(), R.drawable.ic_add)?.constantState) {
             } else {
+                if(usersSession.userId.value?.isEmpty() == true){}
                 if(!match.public){
                     mostrarDialogoCodigoAcceso { codigoIngresado ->
                        if(codigoIngresado != match.codigoUnico){
@@ -152,7 +157,7 @@ class MatchDetailsFragment: Fragment() {
                        }
                     }
                 }
-                usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri ->
+                usersSession.profileImage.observe(viewLifecycleOwner) { imageUrl: Uri? ->
                     if (imageUrl!=null) {
                         Glide.with(requireContext())
                             .load(imageUrl)
