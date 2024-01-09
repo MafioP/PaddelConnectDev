@@ -53,7 +53,6 @@
     <!-- Definir la acción para navegar de loginFragment a homeFragment -->
     <action
         android:id="@+id/action_loginFragment_to_homeFragment"
-        android:name="com.uva.padelconnect.view.CreateMatchFragment"
         app:destination="@id/homeFragment" />
 
     <!-- Definir la acción para navegar de registerFragment a homeFragment -->

@@ -1,5 +1,6 @@
 package com.uva.padelconnect.view
 
+import android.app.Activity
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -87,7 +89,9 @@ class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerV
         holder.buttonArrow2.setOnClickListener {
             val bundle = bundleOf()
             bundle.putString("matchId", match.idMatch)
-            holder.itemView.findNavController().navigate(R.id.matchFragment, bundle)
+            val context = holder.itemView.context
+            val navController = Navigation.findNavController(context as Activity, R.id.nav_host_fragment)
+            navController.navigate(R.id.matchFragment, bundle)
         }
     }
 
