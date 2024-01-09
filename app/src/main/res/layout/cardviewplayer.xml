@@ -16,49 +16,41 @@
 
         <TextView
             android:id="@+id/textViewPlayerRank"
-            android:layout_width="wrap_content"
+            android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:text="1"
+            android:textAlignment="center"
             android:textSize="24sp"
             android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/imageViewRankChange"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textViewPlayerRank"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_up_ranking" />
 
         <TextView
             android:id="@+id/textViewPlayerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewPlayerRank"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_toRightOf="@id/textViewPlayerRank"
             android:text="JUGADOR 1"
-            android:textSize="18sp"
-            android:layout_toEndOf="@id/imageViewRankChange"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewPlayerLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewPlayerName"
+            android:layout_marginLeft="42dp"
             android:layout_marginTop="8dp"
+
             android:text="Valladolid, España"
-            android:textSize="14sp"
-            android:layout_toEndOf="@id/imageViewRankChange" />
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/textViewPlayerPoints"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewPlayerLocation"
+            android:layout_alignParentEnd="true"
             android:text="4996ptos"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_alignParentEnd="true" />
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/imageViewPlayerProfile"

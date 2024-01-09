@@ -99,5 +99,10 @@
     <action
         android:id="@+id/action_matchDetailsFragment_to_matchListFragment"
         app:destination="@id/matchesListFragment"/>
+    <activity
+        android:id="@+id/matchItem"
+        android:name="com.uva.padelconnect.MainActivity"
+        android:label="match_item"
+        tools:layout="@layout/match_item" />
 
 </navigation>

@@ -1,6 +1,7 @@
 package com.uva.padelconnect.modelView.repositories
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.uva.padelconnect.model.entities.User
 import com.google.firebase.database.DataSnapshot
@@ -8,7 +9,6 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
-import com.uva.padelconnect.model.entities.Ranking
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getAuthInstance
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getImageStorageReference
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getRankingReference
@@ -17,7 +17,6 @@ import com.uva.padelconnect.model.firebase.DatabaseConnection.getUsersReference
 class UserRepository {
     private val firebaseAuth: FirebaseAuth = getAuthInstance()
     private var usersAccess: DatabaseReference = getUsersReference()
-    private var rankingAccess : DatabaseReference = getRankingReference()
     private lateinit var imageAccess:StorageReference
 
     fun obtenerUsuario(username: String, callback: (User?) -> Unit){
@@ -82,15 +81,10 @@ class UserRepository {
                 if (task.isSuccessful) {
                     val currentUser = firebaseAuth.currentUser
                     val userId = currentUser?.uid
-
+                    Log.d("LOG", "User logged successfully")
                     if (userId != null) {
-                        // Crear un registro de ranking para el nuevo usuario
-                        val nuevoRanking = Ranking(userId, 0, 0) // Inicialmente, 0 puntos y 0 puntos anteriores
-
                         editarUsuario(userId, name, lastName, username, password, city, country,perfilUri) { success ->
                             if (success) {
-                                rankingAccess.child(userId).setValue(nuevoRanking)
-
                                 val imageAccess = getImageStorageReference(userId)
                                 imageAccess.putFile(perfilUri).addOnCompleteListener { uploadTask ->
                                     if (uploadTask.isSuccessful) {
@@ -116,6 +110,7 @@ class UserRepository {
                         callback(false)
                     }
                 } else {
+                    Log.w("LOG", "User not registered")
                     callback(false)
                 }
             }
@@ -145,4 +140,41 @@ class UserRepository {
             }
         })
     }
+
+    fun setPuntos(userId: String, nuevosPuntos: Int, callback: (Boolean) -> Unit) {
+        usersAccess.child(userId).child("puntos").setValue(nuevosPuntos)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    callback(true)
+                } else {
+                    callback(false)
+                }
+            }
+    }
+
+    fun getTop10Ranking(callback: (List<User>) -> Unit) {
+        usersAccess.orderByChild("puntos")
+            .limitToLast(10)
+            .addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val userList = mutableListOf<User>()
+
+                    for (userSnapshot in dataSnapshot.children) {
+                        val user = userSnapshot.getValue(User::class.java)
+                        user?.let { userList.add(it) }
+                    }
+
+                    // Ordenar la lista en orden descendente de puntos
+                    userList.sortByDescending { it.puntos }
+
+                    callback(userList)
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Manejo de errores si es necesario
+                    callback(emptyList())
+                }
+            })
+    }
+
 }
