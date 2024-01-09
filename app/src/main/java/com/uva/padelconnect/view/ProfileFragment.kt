@@ -8,11 +8,11 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.uva.padelconnect.R
 import com.uva.padelconnect.databinding.FragmentProfileBinding
 import com.uva.padelconnect.model.firebase.DatabaseConnection
@@ -43,27 +43,34 @@ class ProfileFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        // Observar los cambios en los LiveData y actualizar la interfaz de usuario cuando cambien
-        viewModel.name.observe(viewLifecycleOwner) { name ->
-            binding.textViewUserRealName.text = name
-        }
-        viewModel.lastName.observe(viewLifecycleOwner) { lastName ->
-            binding.textViewUserLastName.text = lastName
-        }
-        viewModel.username.observe(viewLifecycleOwner) { username ->
-            binding.textViewUsername.text = username
-        }
-        viewModel.email.observe(viewLifecycleOwner) { email ->
-            binding.textViewUserEmail.text = email
-        }
-        viewModel.password.observe(viewLifecycleOwner) { password ->
-            binding.textViewUserPassword.text = password
-        }
-        viewModel.profileImage.observe(viewLifecycleOwner) { uri ->
-            Glide.with(requireContext())
-                .load(uri)
-                .into(binding.imageViewUser)
+        if(viewModel.userId.value?.isNotEmpty() == true) {
+            // Observar los cambios en los LiveData y actualizar la interfaz de usuario cuando cambien
+            viewModel.name.observe(viewLifecycleOwner) { name ->
+                binding.textViewUserRealName.text = name
+            }
+            viewModel.lastName.observe(viewLifecycleOwner) { lastName ->
+                binding.textViewUserLastName.text = lastName
+            }
+            viewModel.username.observe(viewLifecycleOwner) { username ->
+                binding.textViewUsername.text = username
+            }
+            viewModel.email.observe(viewLifecycleOwner) { email ->
+                binding.textViewUserEmail.text = email
+            }
+            viewModel.password.observe(viewLifecycleOwner) { password ->
+                binding.textViewUserPassword.text = password
+            }
+            viewModel.profileImage.observe(viewLifecycleOwner) { uri ->
+                Glide.with(requireContext())
+                    .load(uri)
+                    .into(binding.imageViewUser)
+            }
+        }else{
+            Snackbar.make(view, "Debes iniciar sesión o registrarte", Snackbar.LENGTH_LONG)
+                .setAction("Iniciar Sesión o Registrarse") {
+                    findNavController().navigate(R.id.action_profileFragment_to_LoginFragment)
+                }
+                .show()
         }
     }
     private fun replaceFragment(fragment: Fragment) {

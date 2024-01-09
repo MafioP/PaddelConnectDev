@@ -1,51 +1,59 @@
 package com.uva.padelconnect.view
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Switch
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.uva.padelconnect.R
-import com.uva.padelconnect.modelView.viewmodel.SettingsViewModel
+import com.uva.padelconnect.databinding.FragmentSettingsBinding
+import com.uva.padelconnect.model.firebase.DatabaseConnection
+import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
 class SettingsFragment : Fragment() {
+    private lateinit var usersSession: UsersSessionViewModel
 
-    private lateinit var settingsViewModel: SettingsViewModel
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_settings, container, false)
+        usersSession = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
 
-        // Inicializar el ViewModel
-        settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
 
-        // Enlazar elementos de la interfaz de usuario y configurar observadores
-        val darkModeSwitch = rootView.findViewById<Switch>(R.id.switchDarkMode)
-        val notificationsSwitch = rootView.findViewById<Switch>(R.id.switchNotifications)
+        val view=binding.root
+        return view
+    }
 
-        settingsViewModel.getIsDarkModeEnabled().observe(viewLifecycleOwner) { isEnabled ->
-            // Actualizar el estado del interruptor de modo oscuro
-            darkModeSwitch.isChecked = isEnabled
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.switchDarkMode.setOnCheckedChangeListener { _, isChecked ->
+            // Implementar lógica para el Modo Oscuro según el valor de isChecked
+            // Por ejemplo:
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            }
+            requireActivity().recreate()
         }
 
-        darkModeSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Cambiar el estado del modo oscuro cuando se cambia el interruptor
-            settingsViewModel.setDarkModeEnabled(isChecked)
+        // Configurar el listener para el switch de Notificaciones
+        binding.switchNotifications.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Desactivar las Notificaciones
+            } else {
+                // Activar las Notificaciones
+            }
         }
 
-        notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
-            // Redirigir a la pantalla de configuración de notificaciones
-            val intent = Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS)
-            intent.putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
-            startActivity(intent)
+        // Configurar el listener para el botón de Cerrar Sesión
+        binding.button.setOnClickListener {
+            usersSession.logOut()
         }
-
-        return rootView
     }
 
 }

@@ -9,21 +9,17 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
-import java.util.Date
 
 class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 
-    private var matches: List<Match> = listOf(Match("match1", false, "Pepe", Date(100000000), "","","","","",false, "","235325"))
-
+    private lateinit var matches: List<Match>
 
     // Crear ViewHolder
     class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -37,6 +33,7 @@ class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerV
         val perfil4:ImageView = itemView.findViewById(R.id.perfil4)
 
     }
+
     // Inflar layout de match_item y devolver MatchViewHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MatchViewHolder {
         val view = LayoutInflater.from(parent.context)

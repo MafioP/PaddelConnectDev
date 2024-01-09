@@ -8,76 +8,43 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
+import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.modelView.viewmodel.HomeViewModel
 import com.uva.padelconnect.databinding.FragmentHomeBinding
+import com.uva.padelconnect.databinding.FragmentMatchDetailsBinding
+import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
 
 class HomeFragment : Fragment() {
+    private lateinit var usersSession: UsersSessionViewModel
 
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        val homeViewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
-        /*val textView: TextView = binding.tvGreeting
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        */
-        return inflater.inflate(R.layout.fragment_home,container,false)
+        usersSession = ViewModelProvider(this).get(UsersSessionViewModel::class.java)
+
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
+        val view=binding.root
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-    /*
-        binding.bottomNavigationMenu.setOnNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.action_partidos -> {
-                    //Navegar al Fragmento del partido
-                    val fragment = MatchesFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-                R.id.action_profile -> {
-                    //Navegar al perfil
-                    val fragment = ProfileFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-
-                R.id.action_ranking->{
-                    //Navegar al Fragmento del Ranking
-                    val fragment= RankingFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-
-                R.id.action_tournament->{
-                    //Navegar al Fragmento del Torneo
-                    val fragment= TournamentFragment()
-                    replaceFragment(fragment)
-                    true
-                }
-                R.id.action_inicio->{
-                    //Quedarse en Home
-                    true
-                }
-                else -> false
-            }
-        }*/
+        if(usersSession.userId.value?.isNotEmpty() == true) {
+            binding.tvGreeting.text="Hola, "+usersSession.username.toString()+"!"
+            binding.tvMatchesWon.text=usersSession.puntos.toString()+" ptos"
+            Glide.with(requireContext())
+                .load(usersSession.profileImage.value)
+                .into(binding.ivUserProfile)
+        }
     }
-    private fun replaceFragment(fragment: Fragment) {
-        // Función para reemplazar el Fragment en tu contenedor principal
-        val transaction = requireActivity().supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment)
-        transaction.addToBackStack(null)
-        transaction.commit()
-    }
+
     override fun onDestroyView() {
         super.onDestroyView()
     }

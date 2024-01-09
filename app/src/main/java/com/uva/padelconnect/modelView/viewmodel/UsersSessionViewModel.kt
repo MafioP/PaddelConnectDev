@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uva.padelconnect.model.entities.User
+import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.uva.padelconnect.modelView.repositories.MatchRepository
 import com.uva.padelconnect.modelView.repositories.UserRepository
 
@@ -23,14 +24,16 @@ class UsersSessionViewModel: ViewModel() {
     val email: LiveData<String> = _email
     private val _password = MutableLiveData<String>()
     val password: LiveData<String> = _password
-    private val _profileImage = MutableLiveData<Uri>()
-    val profileImage: LiveData<Uri> = _profileImage
+    private val _profileImage = MutableLiveData<Uri?>()
+    val profileImage: MutableLiveData<Uri?> = _profileImage
     private val _city = MutableLiveData<String>()
     val city: LiveData<String> = _city
     private val _country = MutableLiveData<String>()
     val country: LiveData<String> = _country
     private val _likedMatches = MutableLiveData<List<String>>()
     val likedMatches: LiveData<List<String>> = _likedMatches
+    private val _puntos = MutableLiveData<Int?>()
+    val puntos: LiveData<Int?> = _puntos
 
     fun obtenerDatosUsuario(username:String ) {
         userRepository.obtenerUsuario(username){user ->
@@ -46,6 +49,7 @@ class UsersSessionViewModel: ViewModel() {
                 _city.value=user.city
                 _country.value=user.country
                 _likedMatches.value=user.likedMatches
+                _puntos.value=user.puntos
             }
         }
     }
@@ -84,5 +88,21 @@ class UsersSessionViewModel: ViewModel() {
         currentLikedMatches.remove(matchId)
         _likedMatches.value = currentLikedMatches
         matchRepository.unlikeMatch(matchId)
+    }
+
+    fun logOut(){
+        _userId.value = ""
+        _name.value = ""
+        _lastName.value = ""
+        _username.value = ""
+        _email.value = ""
+        _password.value = ""
+        _profileImage.value = null
+        _city.value = ""
+        _country.value = ""
+        _likedMatches.value = emptyList()
+        _puntos.value=null
+        val firebaseAuth = DatabaseConnection.getAuthInstance()
+        firebaseAuth.signOut()
     }
 }

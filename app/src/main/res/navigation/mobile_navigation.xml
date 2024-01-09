@@ -50,6 +50,12 @@
         android:label="CreateMatchFragment"
         tools:layout="@layout/fragment_create_match"/>
 
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.uva.padelconnect.view.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login"/>
+
     <!-- Definir la acción para navegar de loginFragment a homeFragment -->
     <action
         android:id="@+id/action_loginFragment_to_homeFragment"
@@ -104,5 +110,9 @@
         android:name="com.uva.padelconnect.MainActivity"
         android:label="match_item"
         tools:layout="@layout/match_item" />
+    <!-- Definir la accion para navegar del perfil a login-->
+    <action
+        android:id="@+id/action_profileFragment_to_LoginFragment"
+        app:destination="@id/loginFragment"/>
 
 </navigation>
