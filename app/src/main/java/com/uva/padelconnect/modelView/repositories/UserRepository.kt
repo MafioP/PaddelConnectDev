@@ -1,6 +1,7 @@
 package com.uva.padelconnect.modelView.repositories
 
 import android.net.Uri
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.uva.padelconnect.model.entities.User
 import com.google.firebase.database.DataSnapshot
@@ -82,7 +83,7 @@ class UserRepository {
                 if (task.isSuccessful) {
                     val currentUser = firebaseAuth.currentUser
                     val userId = currentUser?.uid
-
+                    Log.d("LOG", "User logged successfully")
                     if (userId != null) {
                         // Crear un registro de ranking para el nuevo usuario
                         val nuevoRanking = Ranking(userId, 0, 0) // Inicialmente, 0 puntos y 0 puntos anteriores
@@ -116,6 +117,7 @@ class UserRepository {
                         callback(false)
                     }
                 } else {
+                    Log.w("LOG", "User not registered")
                     callback(false)
                 }
             }
