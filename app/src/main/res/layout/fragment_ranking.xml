@@ -37,15 +37,6 @@
                 android:layout_gravity="center"
                 android:src="@drawable/ic_padleconnect_logo" />
 
-            <ImageButton
-                android:id="@+id/search"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_lupa" />
-
         </androidx.appcompat.widget.Toolbar>
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -90,14 +81,6 @@
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
-                    <ImageView
-                        android:id="@+id/imageViewRankChange"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_below="@id/textViewPlayerRank"
-                        android:layout_marginTop="4dp"
-                        android:src="@drawable/ic_up_ranking" />
-
                     <TextView
                         android:id="@+id/textViewPlayerName"
                         android:layout_width="wrap_content"
@@ -112,9 +95,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/textViewPlayerName"
-                        android:layout_marginLeft="16dp"
+                        android:layout_marginLeft="42dp"
                         android:layout_marginTop="8dp"
-                        android:layout_toRightOf="@id/textViewPlayerRank"
+
                         android:text="Valladolid, España"
                         android:textSize="14sp" />
 

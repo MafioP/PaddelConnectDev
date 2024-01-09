@@ -81,7 +81,8 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.ranking->{
                     // Navegar al ranking
-                    replaceFragment(SettingsFragment())
+                    val fragment = RankingFragment()
+                    replaceFragment(fragment)
                     true
                 }
 
