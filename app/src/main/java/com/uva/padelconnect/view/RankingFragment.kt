@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer
 import com.uva.padelconnect.R
 import com.uva.padelconnect.modelView.viewmodel.RankingViewModel
 import com.bumptech.glide.Glide
+import android.util.TypedValue
 
 
 class RankingFragment: Fragment() {
@@ -57,9 +58,13 @@ class RankingFragment: Fragment() {
 
                     // Configura los datos del usuario en los elementos de la vista dentro de este CardView
                     rankTextView.text = (index + 1).toString()
-                    nameTextView.text = user.name
+                    nameTextView.text = "${user.name} ${user.lastName}"
                     locationTextView.text = "${user.city}, ${user.country}"
                     pointsTextView.text = user.puntos.toString()
+
+                    if (index == 9) {
+                        rankTextView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 21f)
+                    }
 
                     // Cargar la imagen de perfil utilizando Glide
                     Glide.with(requireContext())

@@ -20,4 +20,6 @@ class RankingViewModel : ViewModel() {
             _top10Ranking.postValue(userList)
         }
     }
+
+
 }

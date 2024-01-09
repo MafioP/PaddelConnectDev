@@ -18,6 +18,7 @@ import com.uva.padelconnect.databinding.ActivityMainBinding
 import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.uva.padelconnect.modelView.viewmodel.SettingsViewModel
 import com.uva.padelconnect.view.HomeFragment
+import com.uva.padelconnect.view.LoginFragment
 import com.uva.padelconnect.view.MatchesFragment
 import com.uva.padelconnect.view.ProfileFragment
 import com.uva.padelconnect.view.RankingFragment
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.tournamentFragment->{
                     //Navegar al Fragmento del Torneo
-                    val fragment= TournamentFragment()
+                    val fragment = TournamentFragment()
                     replaceFragment(fragment)
                     true
                 }
