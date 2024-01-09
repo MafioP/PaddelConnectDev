@@ -23,11 +23,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:theme="@style/Theme.PadelConnect_Dark"
-            tools:ignore="DuplicateActivity">
-        </activity>
     </application>
 
 </manifest>
