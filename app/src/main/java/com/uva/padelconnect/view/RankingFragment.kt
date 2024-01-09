@@ -1,6 +1,7 @@
 package com.uva.padelconnect.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class RankingFragment: Fragment() {
                 val emptyDataTextView = TextView(requireContext())
                 emptyDataTextView.text = "No hay datos disponibles"
                 cardContainer?.addView(emptyDataTextView)
+                Log.d("LOG", "NULA O VACIA -------------------------------------")
             } else {
                 // La lista no está vacía, así que crea y configura los CardViews
                 rankingList.forEach { rankingWithUser ->
