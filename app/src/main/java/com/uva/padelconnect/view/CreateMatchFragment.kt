@@ -5,6 +5,7 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -83,6 +84,7 @@ class CreateMatchFragment: Fragment() {
                 val fechaString = binding.editTextDate.text.toString()
                 val place = binding.editTextPlace.text.toString()
                 val type = binding.spinnerType.selectedItem.toString()
+                Log.d("LOG", "Begin Create match")
                 // Asegúrate de tener al menos tres partes (calle, número, ciudad)
                 if (type == "Partido") {
                     usersSession.userId.observe(viewLifecycleOwner){userId->
@@ -91,6 +93,7 @@ class CreateMatchFragment: Fragment() {
                     }
                     viewModelMatches.getCreateResult().observe(viewLifecycleOwner, Observer { createResult: Boolean ->
                             if (createResult) {
+                                Log.d("LOG", "Match created successfully")
                                 findNavController().navigate(com.uva.padelconnect.R.id.action_createMatchFragment_to_matchListFragment)
                             } else {
                                 AlertDialog.Builder(requireContext())

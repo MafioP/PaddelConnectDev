@@ -16,10 +16,11 @@ import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
+import java.util.Date
 
 class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 
-    private lateinit var matches: List<Match>
+    private var matches: List<Match> = listOf(Match("match1", true, "match", Date(1000000000), "p", "u1", "u2", "u3", "u4", false, "", "123"))
 
     // Crear ViewHolder
     class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
