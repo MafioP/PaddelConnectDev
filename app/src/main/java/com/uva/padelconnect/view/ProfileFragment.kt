@@ -83,40 +83,5 @@ class ProfileFragment: Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                val fragment= SettingsFragment()
-                replaceFragment(fragment)
-                true
-            }
-            R.id.action_matches_favorites ->{
-                true
-            }
-            R.id.action_matches_played->{
-                true
-            }
-            R.id.action_profile->{
-                val auth = DatabaseConnection.getAuthInstance()
-                val currentUser = auth.currentUser
-                // Verificar si el usuario actual está logeado
-                val isLoggedIn = currentUser != null
-                    if (isLoggedIn) {
-                        // Si el usuario está logeado, dirigir a una pantalla
-                        // Suponiendo que la pantalla logeada sea ProfileFragment
-                        val fragment = ProfileFragment()
-                        replaceFragment(fragment)
-                    } else {
-                        // Si el usuario no está logeado, dirigir a otra pantalla
-                        // Suponiendo que la pantalla no logeada sea LoginFragment
-                        val fragment = LoginFragment()
-                        replaceFragment(fragment)
-                    }
-                true
-            }
-            // Agrega más casos según los elementos de tu menú
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
 
 }

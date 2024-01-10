@@ -22,7 +22,7 @@
             android:background="@color/white">
 
             <!-- Agrega un ImageView para el icono de hamburguesa -->
-            <ImageView
+            <ImageButton
                 android:id="@+id/imageViewMenu"
                 android:layout_width="30dp"
                 android:layout_height="30dp"

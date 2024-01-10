@@ -2,29 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_profile"
+        android:id="@+id/profileFragment"
         android:orderInCategory="100"
         android:title="@string/menu_profile"
-        android:icon="@drawable/ic_foto_perfil"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_foto_perfil"/>
 
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/settingsFragment"
         android:orderInCategory="100"
         android:title="@string/action_settings"
-        android:icon="@drawable/ic_settings"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_settings" />
     <item
         android:id="@+id/action_matches_favorites"
         android:orderInCategory="100"
         android:title="@string/action_matches_favorites"
-        android:icon="@drawable/ic_like"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_like"/>
     <item
-        android:id="@+id/action_matches_played"
+        android:id="@+id/matchesPlayedFragment"
         android:orderInCategory="100"
         android:title="@string/action_matches_played"
-        android:icon="@drawable/ic_played"
-        app:showAsAction="never" />
+        android:icon="@drawable/ic_played"/>
 
 </menu>
