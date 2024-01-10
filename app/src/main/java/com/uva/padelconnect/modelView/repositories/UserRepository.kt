@@ -21,9 +21,9 @@ class UserRepository {
 
     private val fakeFirebaseService = FakeFirebaseService()
 
-    fun obtenerUsuario(username: String, callback: (User?) -> Unit){
+    fun obtenerUsuario(email: String, callback: (User?) -> Unit){
         // Lógica para obtener los datos del usuario desde Firebase
-        val query = usersAccess.orderByChild("username").equalTo(username)
+        val query = usersAccess.orderByChild("email").equalTo(email)
 
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {

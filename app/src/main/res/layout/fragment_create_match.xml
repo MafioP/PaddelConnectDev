@@ -113,7 +113,9 @@
             android:id="@+id/textLink"
             android:layout_width="250dp"
             android:layout_height="45dp"
-            android:text="Introduce el enlace"
+            android:text="Codigo"
+            android:textSize="20dp"
+            android:textAlignment="center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/buttonCopyLink"
             app:layout_constraintTop_toTopOf="parent"
@@ -125,9 +127,9 @@
             android:layout_height="wrap_content"
             android:text="Copiar Enlace"
             android:layout_marginLeft="5dp"
-            app:layout_constraintStart_toEndOf="@+id/editTextLink"
-            app:layout_constraintTop_toTopOf="@+id/editTextLink"
-            app:layout_constraintBottom_toBottomOf="@+id/editTextLink" />
+            app:layout_constraintStart_toEndOf="@+id/textLink"
+            app:layout_constraintTop_toTopOf="@+id/textLink"
+            app:layout_constraintBottom_toBottomOf="@+id/textLink" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
