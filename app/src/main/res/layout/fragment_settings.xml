@@ -12,9 +12,10 @@
         android:id="@+id/textViewSettingsHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/header"
         android:layout_centerHorizontal="true"
-        android:text="Configuración"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        android:text="CONFIGURACION"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:layout_marginTop="16dp"/>
 
