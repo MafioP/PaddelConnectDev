@@ -180,6 +180,7 @@ class UserRepository {
     }
 
     fun getTop10Ranking(callback: (List<User>) -> Unit) {
+
         val userList = fakeFirebaseService.getFakeUserData()
 
         callback(userList)

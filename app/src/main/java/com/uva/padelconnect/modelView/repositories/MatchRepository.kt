@@ -10,11 +10,12 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.uva.padelconnect.model.entities.Match
 import com.uva.padelconnect.model.firebase.DatabaseConnection
+import com.uva.padelconnect.model.firebase.FakeFirebaseService
 import java.util.Date
 
 class MatchRepository {
     private var matchesAccess : DatabaseReference = DatabaseConnection.getMatchesReference()
-
+    private var fakeMatches = FakeFirebaseService()
     fun getMatchesByCity(city: String, callback: (List<Match>) -> Unit) {
         val query = matchesAccess.orderByChild("city").equalTo(city)
 
@@ -28,7 +29,7 @@ class MatchRepository {
                         match?.let { matchesList.add(it) }
                     }
                 }
-                callback(matchesList)
+                callback(fakeMatches.getFakeMatches())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -51,7 +52,7 @@ class MatchRepository {
                         match?.let { matchesList.add(it) }
                     }
                 }
-                callback(matchesList)
+                callback(fakeMatches.getFakeMatches())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -59,6 +60,10 @@ class MatchRepository {
                 callback(emptyList()) // Devolver lista vacía en caso de error
             }
         })
+    }
+
+    fun getMatches2(): List<Match> {
+        return fakeMatches.getFakeMatches()
     }
     fun createMatch(match: Match, onComplete: (Boolean) -> Unit) {
         val matchId = matchesAccess.child("matches").push().key // Generar ID para el partido

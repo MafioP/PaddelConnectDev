@@ -41,10 +41,8 @@ class MatchesViewModel: ViewModel() {
         }
     }
 
-    fun getMatches(){
-        matchRepository.getMatches(){ matches ->
-            _matchesLiveData.postValue(matches)
-        }
+    fun getMatches(): List<Match> {
+        return matchRepository.getMatches2()
     }
 
     fun registerMatch(selectedMatchPrivacy: String, name: String, fechaString: String, place: String, selectedMatchType: String,idUser1:String,code:String) {
@@ -70,6 +68,10 @@ class MatchesViewModel: ViewModel() {
     }
     fun getMatchById(matchId: String): Match? {
         return _matchesLiveData.value?.find { match -> match.idMatch == matchId }
+    }
+
+    fun getMatchById2(matchId:String): Match? {
+        return getMatches().find { match -> match.idMatch == matchId }
     }
 
     fun updateMatchUserId(matchId:String,userId:String, pos: Int){

@@ -65,9 +65,9 @@ class MatchDetailsFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val match: Match = matchesViewModel.getMatchById(matchId)!!
+        val match: Match = matchesViewModel.getMatchById2(matchId)!!
         // Usa 'match' como lo necesites en tu fragmento
-        setDatos(match)
+        //setDatos(match)
 
         binding.share.setOnClickListener {
             val link = match.codigoUnico

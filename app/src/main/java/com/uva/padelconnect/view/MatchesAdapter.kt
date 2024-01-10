@@ -20,8 +20,7 @@ import java.util.Date
 
 class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 
-    private lateinit var matches: List<Match>
-
+    private var matches: List<Match> = matchesViewModel.getMatches()
     // Crear ViewHolder
     class MatchViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Asignar vistas en el ViewHolder

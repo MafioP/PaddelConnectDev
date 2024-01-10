@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         // Inicializar el ViewModel
         settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
 
+        replaceFragment(HomeFragment())
+
         // Observar el estado del modo oscuro y aplicar el tema correspondiente
         settingsViewModel.getIsDarkModeEnabled().observe(this) { isEnabled ->
             if (isEnabled) {
@@ -53,16 +55,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val auth = Firebase.auth
 
-        //Checkear si el usuario esta registrado/logeado
-        if (auth.currentUser != null) {
-            auth.currentUser!!.email?.let { Log.d("LOG", it) }
-            replaceFragment(HomeFragment())
-            //usuario existe
-        } else {
-            replaceFragment(LoginFragment())
-        }
         binding.drawerLayout.close()
         binding.imageViewMenu.setOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)
@@ -71,30 +64,29 @@ class MainActivity : AppCompatActivity() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.profileFragment -> {
-                    // Handle item 1 click
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     replaceFragment(ProfileFragment())
                     true
                 }
+
                 R.id.matchesLikedFragment -> {
-                    // Handle item 1 click
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     replaceFragment(MatchesLikedFragment())
                     true
                 }
+
                 R.id.matchesPlayedFragment -> {
-                    // Handle item 1 click
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     replaceFragment(MatchesPlayedFragment())
                     true
                 }
+
                 R.id.settingsFragment -> {
-                    // Handle item 1 click
                     binding.drawerLayout.closeDrawer(GravityCompat.START)
                     replaceFragment(SettingsFragment())
                     true
                 }
-                // Add more cases as needed
+
                 else -> false
             }
         }
@@ -107,6 +99,7 @@ class MainActivity : AppCompatActivity() {
                     replaceFragment(fragment)
                     true
                 }
+
                 R.id.profileFragment -> {
                     //Navegar al perfil
                     val fragment = ProfileFragment()
@@ -114,24 +107,26 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-                R.id.ranking->{
+                R.id.ranking -> {
                     // Navegar al ranking
                     val fragment = RankingFragment()
                     replaceFragment(fragment)
                     true
                 }
 
-                R.id.tournamentFragment->{
+                R.id.tournamentFragment -> {
                     //Navegar al Fragmento del Torneo
                     val fragment = TournamentFragment()
                     replaceFragment(fragment)
                     true
                 }
-                R.id.homeFragment->{
+
+                R.id.homeFragment -> {
                     //Quedarse en Home
                     replaceFragment(HomeFragment())
                     true
                 }
+
                 else -> false
             }
         }
@@ -142,17 +137,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun replaceFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.frame_layout,fragment).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.frame_layout, fragment).commit()
     }
-/*
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-        return true
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }*/
 }
