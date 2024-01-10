@@ -11,7 +11,6 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getAuthInstance
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getImageStorageReference
-import com.uva.padelconnect.model.firebase.DatabaseConnection.getRankingReference
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getUsersReference
 import com.uva.padelconnect.model.firebase.FakeFirebaseService
 
