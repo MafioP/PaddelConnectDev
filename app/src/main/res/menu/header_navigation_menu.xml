@@ -13,7 +13,7 @@
         android:title="@string/action_settings"
         android:icon="@drawable/ic_settings" />
     <item
-        android:id="@+id/action_matches_favorites"
+        android:id="@+id/matchesLikedFragment"
         android:orderInCategory="100"
         android:title="@string/action_matches_favorites"
         android:icon="@drawable/ic_like"/>
