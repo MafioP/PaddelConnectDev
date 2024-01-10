@@ -201,7 +201,19 @@ class MatchDetailsFragment: Fragment() {
                 // Después de que el texto cambia, aquí puedes obtener el nuevo texto
                 val result = s.toString()
                 matchesViewModel.updateResult(matchId,result)
-                //TODO:ACTUALIZAR PUNTUACION DE LOS USUARIOS PARA EL RANKING
+                usersSession.userId.observe(viewLifecycleOwner) { userId: String ->
+                    // Aquí puedes utilizar el valor del userId
+                    if (!userId.isNullOrEmpty()) {
+                        matchesViewModel.setPuntos(userId, 100) { success ->
+                            if (success) {
+                                // Los puntos del usuario se actualizaron correctamente
+                            } else {
+                                // Hubo un error al actualizar los puntos
+                            }
+                        }
+                    }
+                }
+
             }
         })
 

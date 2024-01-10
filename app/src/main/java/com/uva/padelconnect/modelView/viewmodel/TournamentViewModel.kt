@@ -14,10 +14,6 @@ class TournamentViewModel: ViewModel() {
 
     fun getCreateResult(): LiveData<Boolean> = createResultLiveData
 
-    fun registerTournament(public: Any, name: String, date: Any, city: Any, place: String) {
-
-    }
-
     // LiveData para la lista de torneos
     private var allTournaments: LiveData<List<Tournament>>? = null
 
@@ -56,5 +52,9 @@ class TournamentViewModel: ViewModel() {
     // Método para obtener el número total de personas apuntadas a un torneo
     fun getNumberOfParticipantsForTournament(tournamentId: String, callback: (Int) -> Unit) {
         repository.getNumberOfParticipantsForTournament(tournamentId, callback)
+    }
+
+    fun registerTournament(public: Any, name: String, date: Any, city: Any, place: String) {
+
     }
 }

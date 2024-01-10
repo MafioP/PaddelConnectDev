@@ -1,5 +1,6 @@
 package com.uva.padelconnect.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import com.uva.padelconnect.R
 import com.uva.padelconnect.modelView.viewmodel.TournamentViewModel
 import java.text.SimpleDateFormat
@@ -56,17 +59,10 @@ class TournamentFragment: Fragment() {
                     matchmakingModeTextView.text = "Modo de Emparejamiento: ${if (tournament.doubles) "Parejas" else "Individual"}"
 
                     arrowImageButton.setOnClickListener {
-                        // Cuando se hace clic en la flecha, abrir TournamentDetailsFragment y pasar el idTorneo
-                        val bundle = Bundle()
-                        bundle.putString("tournamentId", tournament.idTorneo)
-
-                        val tournamentDetailsFragment = TournamentDetailsFragment()
-                        tournamentDetailsFragment.arguments = bundle
-
-                        requireActivity().supportFragmentManager.beginTransaction()
-                            .replace(R.id.fragment_container, tournamentDetailsFragment)
-                            .addToBackStack(null)
-                            .commit()
+                        //val bundle = bundleOf("tournamentId" to tournament.idTorneo)
+                        //val context = requireContext()
+                        //val navController = Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
+                        //navController.navigate(R.id.action_tournamentFragment_to_tournamentDetailsFragment, bundle)
                     }
 
                     containerForCardViews.addView(cardView)

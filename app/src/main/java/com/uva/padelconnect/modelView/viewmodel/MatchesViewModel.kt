@@ -116,4 +116,10 @@ class MatchesViewModel: ViewModel() {
             .map { allowedChars.random() } // Genera un código aleatorio con la longitud especificada
             .joinToString("") // Convierte la lista de caracteres en un String
     }
+
+    fun setPuntos(userId: String, nuevosPuntos: Int, callback: (Boolean) -> Unit) {
+        userRepository.setPuntos(userId, nuevosPuntos) { success ->
+            callback(success)
+        }
+    }
 }
