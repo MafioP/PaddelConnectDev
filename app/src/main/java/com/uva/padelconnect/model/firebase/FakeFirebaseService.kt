@@ -1,7 +1,9 @@
 package com.uva.padelconnect.model.firebase
 
 import android.net.Uri
+import com.uva.padelconnect.model.entities.Tournament
 import com.uva.padelconnect.model.entities.User
+import java.util.Date
 
 class FakeFirebaseService {
     fun getFakeUserData(): List<User> {
@@ -19,6 +21,26 @@ class FakeFirebaseService {
         userList.add(User("10", "William", "Lee", "williamlee", "williamlee@example.com", "City10", "Country10", "password", Uri.parse("fake_uri_10"), mutableListOf(), 50))
 
         return userList.sortedByDescending { it.puntos }
+    }
+
+    fun getFakeTournamentsData(): List<Tournament> {
+        // Crea una lista de torneos ficticios para pruebas
+        val tournamentList = mutableListOf<Tournament>()
+
+        val currentDate = Date()
+
+        tournamentList.add(Tournament("1", false, "Torneo 1", currentDate, "Lugar 1", true, "codigo1", mutableListOf()))
+        tournamentList.add(Tournament("2", true, "Torneo 2", currentDate, "Lugar 2", false, "codigo2", mutableListOf()))
+        tournamentList.add(Tournament("3", true, "Torneo 3", currentDate, "Lugar 3", false, "codigo3", mutableListOf()))
+        tournamentList.add(Tournament("4", true, "Torneo 4", currentDate, "Lugar 4", false, "codigo4", mutableListOf()))
+        tournamentList.add(Tournament("5", true, "Torneo 5", currentDate, "Lugar 5", false, "codigo5", mutableListOf()))
+        tournamentList.add(Tournament("6", true, "Torneo 6", currentDate, "Lugar 6", false, "codigo6", mutableListOf()))
+        tournamentList.add(Tournament("7", true, "Torneo 7", currentDate, "Lugar 7", false, "codigo7", mutableListOf()))
+        tournamentList.add(Tournament("8", true, "Torneo 8", currentDate, "Lugar 8", false, "codigo8", mutableListOf()))
+        tournamentList.add(Tournament("9", true, "Torneo 9", currentDate, "Lugar 9", false, "codigo9", mutableListOf()))
+        tournamentList.add(Tournament("10", true, "Torneo 10", currentDate, "Lugar 10", false, "codigo10", mutableListOf()))
+
+        return tournamentList
     }
 
 }

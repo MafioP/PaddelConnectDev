@@ -42,7 +42,7 @@ class RankingFragment: Fragment() {
                 val emptyDataTextView = TextView(requireContext())
                 emptyDataTextView.text = "No hay datos disponibles"
                 cardContainer?.addView(emptyDataTextView)
-                Log.d("LOG", "NULA O VACIA -------------------------------------")
+
             } else {
                 // La lista no está vacía, así que crea y configura los CardViews
                 userList.forEachIndexed { index, user ->
