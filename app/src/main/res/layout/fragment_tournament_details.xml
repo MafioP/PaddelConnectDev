@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="15dp"
+        tools:ignore="MissingConstraints">
+
+        <!-- Toolbar o ActionBar -->
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white">
+
+            <ImageView
+                android:id="@+id/imageViewMenu"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="start"
+                android:src="@drawable/ic_menu" />
+
+            <!-- Agrega un ImageView para la imagen de la empresa -->
+            <ImageView
+                android:id="@+id/imageViewCompanyLogo"
+                android:layout_width="177dp"
+                android:layout_height="22dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_padleconnect_logo" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <!-- Contenedor principal -->
+
+    <LinearLayout
+        android:id="@+id/tournamentDetailsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Nombre del torneo -->
+        <TextView
+            android:id="@+id/tournamentNameTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre del Torneo"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"/>
+
+        <!-- Fecha del torneo -->
+        <TextView
+            android:id="@+id/tournamentDateTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha: 10 de Enero, 2024"
+            android:textSize="18sp"
+            android:textColor="#666"/>
+
+        <!-- Personas apuntadas -->
+        <TextView
+            android:id="@+id/registeredParticipantsTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Personas apuntadas: 50"
+            android:textSize="18sp"
+            android:textColor="#666"/>
+
+        <!-- Ubicación -->
+        <TextView
+            android:id="@+id/locationTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ubicación: Ciudad, País"
+            android:textSize="18sp"
+            android:textColor="#666"/>
+
+        <!-- Privacidad -->
+        <TextView
+            android:id="@+id/privacyTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Privacidad: Privado"
+            android:textSize="18sp"
+            android:textColor="#666"/>
+
+        <!-- Modo de emparejamiento -->
+        <TextView
+            android:id="@+id/matchmakingModeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Modo de emparejamiento: Individual"
+            android:textSize="18sp"
+            android:textColor="#666"/>
+
+        <!-- Campo para introducir el nombre de usuario de la pareja -->
+        <EditText
+            android:id="@+id/partnerUsernameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="Usuario de la pareja"
+            android:visibility="gone"
+            android:textSize="18sp"
+            android:textColor="#666"/>
+
+        <!-- Botón para unirse al torneo -->
+        <Button
+            android:id="@+id/joinTournamentButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="24dp"
+            android:text="Unirse al Torneo"
+            android:textSize="18sp"
+            android:textColor="#fff" />
+
+    </LinearLayout>
+
+</RelativeLayout>

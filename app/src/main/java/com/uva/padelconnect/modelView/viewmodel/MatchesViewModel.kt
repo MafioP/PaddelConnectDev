@@ -1,6 +1,7 @@
 package com.uva.padelconnect.modelView.viewmodel
 
 import android.net.Uri
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -52,6 +53,7 @@ class MatchesViewModel: ViewModel() {
         var date:Date?=null
         var city =""
         val formatoFecha = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        Log.d("LOG", "Match Created with name: $name")
         try {
             date = formatoFecha.parse(fechaString)
         } catch (e: ParseException) {

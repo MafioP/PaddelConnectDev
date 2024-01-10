@@ -45,5 +45,10 @@ object DatabaseConnection {
         return firebaseDatabase!!.reference.child("ranking")
     }
 
+    fun getTournamentReference(): DatabaseReference {
+        getDatabaseReference()
+        return firebaseDatabase!!.reference.child("tournaments")
+    }
+
 
 }

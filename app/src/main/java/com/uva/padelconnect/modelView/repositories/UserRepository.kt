@@ -11,13 +11,15 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.StorageReference
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getAuthInstance
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getImageStorageReference
-import com.uva.padelconnect.model.firebase.DatabaseConnection.getRankingReference
 import com.uva.padelconnect.model.firebase.DatabaseConnection.getUsersReference
+import com.uva.padelconnect.model.firebase.FakeFirebaseService
 
 class UserRepository {
     private val firebaseAuth: FirebaseAuth = getAuthInstance()
     private var usersAccess: DatabaseReference = getUsersReference()
     private lateinit var imageAccess:StorageReference
+
+    private val fakeFirebaseService = FakeFirebaseService()
 
     fun obtenerUsuario(username: String, callback: (User?) -> Unit){
         // Lógica para obtener los datos del usuario desde Firebase
@@ -152,7 +154,7 @@ class UserRepository {
             }
     }
 
-    fun getTop10Ranking(callback: (List<User>) -> Unit) {
+    fun getTop10Ranking2(callback: (List<User>) -> Unit) {
         usersAccess.orderByChild("puntos")
             .limitToLast(10)
             .addListenerForSingleValueEvent(object : ValueEventListener {
@@ -175,6 +177,12 @@ class UserRepository {
                     callback(emptyList())
                 }
             })
+    }
+
+    fun getTop10Ranking(callback: (List<User>) -> Unit) {
+        val userList = fakeFirebaseService.getFakeUserData()
+
+        callback(userList)
     }
 
 }

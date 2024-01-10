@@ -7,51 +7,7 @@
     android:orientation="vertical">
 
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:elevation="15dp"
-        tools:ignore="MissingConstraints">
-
-        <!-- Toolbar o ActionBar -->
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white">
-
-            <!-- Agrega un ImageView para el icono de hamburguesa -->
-            <ImageView
-                android:id="@+id/imageViewMenu"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="start"
-                android:src="@drawable/ic_menu" />
-
-            <!-- Agrega un ImageView para la imagen de la empresa -->
-            <ImageView
-                android:id="@+id/imageViewCompanyLogo"
-                android:layout_width="177dp"
-                android:layout_height="22dp"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_padleconnect_logo" />
-
-            <ImageButton
-                android:id="@+id/add"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_gravity="end"
-                android:layout_marginEnd="16dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_add" />
-
-        </androidx.appcompat.widget.Toolbar>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-        <!-- Selector para elegir partido o torneo -->
+    <!-- Selector para elegir partido o torneo -->
         <TextView
             android:id="@+id/textViewType"
             android:layout_width="match_parent"

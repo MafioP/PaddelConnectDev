@@ -13,11 +13,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
 import com.google.firebase.auth.auth
 import com.uva.padelconnect.databinding.ActivityMainBinding
 import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.uva.padelconnect.modelView.viewmodel.SettingsViewModel
+import com.uva.padelconnect.view.CreateMatchFragment
 import com.uva.padelconnect.view.HomeFragment
+import com.uva.padelconnect.view.LoginFragment
 import com.uva.padelconnect.view.MatchesFragment
 import com.uva.padelconnect.view.ProfileFragment
 import com.uva.padelconnect.view.RankingFragment
@@ -35,7 +38,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Inicialización de Firebase
         FirebaseApp.initializeApp(this)
-
         // Inicializar el ViewModel
         settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
 
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             //usuario existe
         } else {
             Log.println(Log.INFO, "LOG", "User not loged")
-            replaceFragment(RegisterFragment())
+            replaceFragment(LoginFragment())
         }
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
 
                 R.id.tournamentFragment->{
                     //Navegar al Fragmento del Torneo
-                    val fragment= TournamentFragment()
+                    val fragment = TournamentFragment()
                     replaceFragment(fragment)
                     true
                 }
@@ -101,7 +103,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        binding.createMatch.setOnClickListener {
+            replaceFragment(CreateMatchFragment())
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
