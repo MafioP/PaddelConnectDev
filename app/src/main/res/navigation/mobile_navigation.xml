@@ -39,9 +39,7 @@
         android:name="com.uva.padelconnect.view.MatchDetailsFragment"
         android:label="MatchDetailsFragment"
         tools:layout="@layout/fragment_match_details">
-        <argument
-            android:name="matchId"
-            app:argType="string" />
+
     </fragment>
 
     <fragment
@@ -114,5 +112,17 @@
     <action
         android:id="@+id/action_profileFragment_to_LoginFragment"
         app:destination="@id/loginFragment"/>
+    <fragment
+        android:id="@+id/settingsFragment2"
+        android:name="com.uva.padelconnect.view.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/matchesLikedFragment"
+        android:name="com.uva.padelconnect.view.MatchesLikedFragment"
+        android:label="MatchesLikedFragment" />
+    <fragment
+        android:id="@+id/matchesPlayedFragment"
+        android:name="com.uva.padelconnect.view.MatchesPlayedFragment"
+        android:label="MatchesPlayedFragment" />
 
 </navigation>

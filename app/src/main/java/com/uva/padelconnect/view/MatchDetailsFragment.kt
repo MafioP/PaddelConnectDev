@@ -5,6 +5,9 @@ import android.app.DatePickerDialog
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
+import android.location.Address
+import android.location.Geocoder
+import android.location.Geocoder.GeocodeListener
 import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
@@ -22,13 +25,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.uva.padelconnect.R
 import com.uva.padelconnect.databinding.FragmentMatchDetailsBinding
 import com.uva.padelconnect.model.entities.Match
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
 import com.uva.padelconnect.modelView.viewmodel.UsersSessionViewModel
+import java.io.IOException
 import java.util.Calendar
+import java.util.Locale
 
 class MatchDetailsFragment: Fragment() {
 
@@ -261,28 +267,9 @@ class MatchDetailsFragment: Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    override fun onResume() {
-        super.onResume()
-        binding.mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.mapView.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.mapView.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
-    }
     private fun setDatos(match: Match) {
 
-        // Luego, puedes usar matchesViewModel para obtener los detalles del partido según el ID
+        binding.textViewBarrio.text=match.place
 
         binding.textViewDate.text = match.date.toString()
         if (match.doubles) {
@@ -298,75 +285,55 @@ class MatchDetailsFragment: Fragment() {
                 binding.textViewDatos.text = "Individual | Privado"
             }
         }
-        var user1:Uri?=null
-        var user2:Uri?=null
-        var user3:Uri?=null
-        var user4:Uri?=null
+        var user1: Uri? = null
+        var user2: Uri? = null
+        var user3: Uri? = null
+        var user4: Uri? = null
 
-        matchesViewModel.getPerfilPhoto(match.idUser1,2)
+        matchesViewModel.getPerfilPhoto(match.idUser1, 2)
         matchesViewModel.fotoPerfilUri1LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-            user1=fotoPerfilUri
+            user1 = fotoPerfilUri
         }
 
-        if(match.idUser2.isNotEmpty()) {
-            matchesViewModel.getPerfilPhoto(match.idUser2,2)
+        if (match.idUser2.isNotEmpty()) {
+            matchesViewModel.getPerfilPhoto(match.idUser2, 2)
             matchesViewModel.fotoPerfilUri2LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-                user2=fotoPerfilUri
+                user2 = fotoPerfilUri
             }
         }
-        if(match.idUser3.isNotEmpty()) {
-            matchesViewModel.getPerfilPhoto(match.idUser3,3)
+        if (match.idUser3.isNotEmpty()) {
+            matchesViewModel.getPerfilPhoto(match.idUser3, 3)
             matchesViewModel.fotoPerfilUri3LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-                user3=fotoPerfilUri
+                user3 = fotoPerfilUri
             }
         }
-        if(match.idUser4.isNotEmpty()) {
-            matchesViewModel.getPerfilPhoto(match.idUser3,4)
+        if (match.idUser4.isNotEmpty()) {
+            matchesViewModel.getPerfilPhoto(match.idUser3, 4)
             matchesViewModel.fotoPerfilUri4LiveData.observe(viewLifecycleOwner) { fotoPerfilUri ->
-                user4=fotoPerfilUri
+                user4 = fotoPerfilUri
             }
         }
 
         Glide.with(this)
-                .load(user1) // URL de la primera imagen de perfil
-                .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
-                .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
-                .into(binding.perfil1) // ImageView donde se muestra la imagen
+            .load(user1) // URL de la primera imagen de perfil
+            .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+            .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
+            .into(binding.perfil1) // ImageView donde se muestra la imagen
         Glide.with(this)
-                .load(user3) // URL de la primera imagen de perfil
-                .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
-                .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
-                .into(binding.perfil3) // ImageView donde se muestra la imagen
+            .load(user3) // URL de la primera imagen de perfil
+            .placeholder(R.drawable.ic_white) // Placeholder mientras carga la imagen
+            .error(R.drawable.ic_perfil_inf) // Imagen de error si la carga falla
+            .into(binding.perfil3) // ImageView donde se muestra la imagen
         Glide.with(this)
-                .load(user2)
-                .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
-                .error(R.drawable.ic_perfil_inf)
-                .into(binding.perfil2)
+            .load(user2)
+            .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
+            .error(R.drawable.ic_perfil_inf)
+            .into(binding.perfil2)
         Glide.with(this)
-                .load(user4)
-                .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
-                .error(R.drawable.ic_perfil_inf)
-                .into(binding.perfil4)
+            .load(user4)
+            .placeholder(if (match.doubles) R.drawable.ic_white else R.drawable.ic_white)
+            .error(R.drawable.ic_perfil_inf)
+            .into(binding.perfil4)
 
-       /*
-        val placesClient = Places.createClient(requireContext())
-        val fields = listOf(Place.Field.ID, Place.Field.LAT_LNG)
-        val findPlaceRequest = FindPlaceRequest.newInstance(address, fields)
-
-        placesClient.findPlace(findPlaceRequest)
-            .addOnSuccessListener { response: FindPlaceResponse ->
-                if (response != null && response.placeLikelihoods.isNotEmpty()) {
-                    val place = response.placeLikelihoods[0].place
-                    val latLng = place.latLng
-                    if (latLng != null) {
-                        val mapView = binding.mapView
-                        mapView.getMapAsync { googleMap ->
-                            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15f))
-                            googleMap.addMarker(MarkerOptions().position(latLng).title("Marker"))
-                        }
-                    }
-                }
-            }*/
     }
-
 }

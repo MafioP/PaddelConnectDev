@@ -35,8 +35,8 @@ class UsersSessionViewModel: ViewModel() {
     private val _puntos = MutableLiveData<Int?>()
     val puntos: LiveData<Int?> = _puntos
 
-    fun obtenerDatosUsuario(username:String ) {
-        userRepository.obtenerUsuario(username){user ->
+    fun obtenerDatosUsuario(email:String ) {
+        userRepository.obtenerUsuario(email){user ->
             if(user!=null){
                 _userId.value=user.userId
                 // Asignar los datos del usuario al ViewModel

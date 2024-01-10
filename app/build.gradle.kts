@@ -40,7 +40,6 @@ android {
 }
 
 dependencies {
-    implementation ("com.google.android.gms:play-services-places:17.0.0") // Dependencia para Places SDK
     implementation ("com.google.android.gms:play-services-maps:18.2.0") // Dependencia para Google Maps
     implementation ("androidx.core:core-ktx:1.7.0")
     implementation("androidx.core:core-ktx:1.9.0")
@@ -56,6 +55,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth")
     implementation ("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-storage")
+    implementation("com.google.firebase:firebase-appcheck-playintegrity")
     implementation("com.firebaseui:firebase-ui-auth:7.2.0")
     implementation ("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.android.gms:play-services-maps:18.2.0")

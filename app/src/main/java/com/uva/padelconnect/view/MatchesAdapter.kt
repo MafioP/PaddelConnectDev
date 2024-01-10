@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide
 import com.uva.padelconnect.R
 import com.uva.padelconnect.model.entities.Match
 import com.uva.padelconnect.modelView.viewmodel.MatchesViewModel
+import java.util.Date
 
 class MatchesAdapter(private val matchesViewModel: MatchesViewModel) : RecyclerView.Adapter<MatchesAdapter.MatchViewHolder>() {
 

@@ -2,27 +2,28 @@ package com.uva.padelconnect
 
 import android.os.Bundle
 import android.util.Log
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.findNavController
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.Firebase
 import com.google.firebase.FirebaseApp
+import com.google.firebase.app
+import com.google.firebase.appcheck.AppCheckProviderFactory
+import com.google.firebase.appcheck.appCheck
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.auth.auth
 import com.uva.padelconnect.databinding.ActivityMainBinding
-import com.uva.padelconnect.model.firebase.DatabaseConnection
 import com.uva.padelconnect.modelView.viewmodel.SettingsViewModel
+import com.uva.padelconnect.view.CreateMatchFragment
 import com.uva.padelconnect.view.HomeFragment
 import com.uva.padelconnect.view.LoginFragment
 import com.uva.padelconnect.view.MatchesFragment
+import com.uva.padelconnect.view.MatchesLikedFragment
+import com.uva.padelconnect.view.MatchesPlayedFragment
 import com.uva.padelconnect.view.ProfileFragment
 import com.uva.padelconnect.view.RankingFragment
-import com.uva.padelconnect.view.RegisterFragment
 import com.uva.padelconnect.view.SettingsFragment
 import com.uva.padelconnect.view.TournamentFragment
 
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         // Inicialización de Firebase
         FirebaseApp.initializeApp(this)
-
+        Firebase.appCheck.installAppCheckProviderFactory(PlayIntegrityAppCheckProviderFactory.getInstance())
         // Inicializar el ViewModel
         settingsViewModel = ViewModelProvider(this).get(SettingsViewModel::class.java)
 
@@ -56,13 +57,46 @@ class MainActivity : AppCompatActivity() {
 
         //Checkear si el usuario esta registrado/logeado
         if (auth.currentUser != null) {
-            Log.d("LOG", "HELLO")
             auth.currentUser!!.email?.let { Log.d("LOG", it) }
             replaceFragment(HomeFragment())
             //usuario existe
         } else {
-            Log.println(Log.INFO, "LOG", "User not loged")
-            replaceFragment(RegisterFragment())
+            replaceFragment(LoginFragment())
+        }
+        binding.drawerLayout.close()
+        binding.imageViewMenu.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
+
+        binding.navigationView.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.profileFragment -> {
+                    // Handle item 1 click
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    replaceFragment(ProfileFragment())
+                    true
+                }
+                R.id.matchesLikedFragment -> {
+                    // Handle item 1 click
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    replaceFragment(MatchesLikedFragment())
+                    true
+                }
+                R.id.matchesPlayedFragment -> {
+                    // Handle item 1 click
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    replaceFragment(MatchesPlayedFragment())
+                    true
+                }
+                R.id.settingsFragment -> {
+                    // Handle item 1 click
+                    binding.drawerLayout.closeDrawer(GravityCompat.START)
+                    replaceFragment(SettingsFragment())
+                    true
+                }
+                // Add more cases as needed
+                else -> false
+            }
         }
 
         binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
@@ -102,7 +136,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
+        binding.createMatch.setOnClickListener {
+            replaceFragment(CreateMatchFragment())
+        }
     }
 
     private fun replaceFragment(fragment: Fragment) {
