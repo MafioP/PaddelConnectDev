@@ -36,13 +36,13 @@ class LoginFragment : Fragment() {
 
         // Manejar clic en el botón de inicio de sesión
         binding.buttonLogin.setOnClickListener {
-            val username = binding.editTextUsername.text.toString()
+            val email = binding.editTextUsername.text.toString()
             val password = binding.editTextPassword.text.toString()
-            viewModel.login(username, password)
+            viewModel.login(email, password)
             viewModel.getLoginResult()
                 .observe(viewLifecycleOwner, Observer { loginResult: Boolean ->
                     if (loginResult) {
-                        usersSessionViewModel.obtenerDatosUsuario(username)
+                        usersSessionViewModel.obtenerDatosUsuario(email)
                         findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     } else {
                         AlertDialog.Builder(requireContext())

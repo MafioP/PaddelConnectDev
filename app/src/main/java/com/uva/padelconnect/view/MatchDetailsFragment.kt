@@ -255,28 +255,9 @@ class MatchDetailsFragment: Fragment() {
         super.onDestroyView()
         _binding = null
     }
-    override fun onResume() {
-        super.onResume()
-        binding.mapView.onResume()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        binding.mapView.onPause()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        binding.mapView.onDestroy()
-    }
-
-    override fun onLowMemory() {
-        super.onLowMemory()
-        binding.mapView.onLowMemory()
-    }
     private fun setDatos(match: Match) {
 
-        // Luego, puedes usar matchesViewModel para obtener los detalles del partido según el ID
+        binding.textViewBarrio.text=match.place
 
         binding.textViewDate.text = match.date.toString()
         if (match.doubles) {
